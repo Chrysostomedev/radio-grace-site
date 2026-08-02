@@ -1,65 +1,138 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-export default function Home() {
+export default function SplashPage() {
+  const router = useRouter();
+  const [phase, setPhase] = useState<"in" | "out">("in");
+
+  useEffect(() => {
+    // Animation courte puis sortie
+    const outTimer = setTimeout(() => setPhase("out"), 1600);
+    const redirectTimer = setTimeout(() => {
+      router.replace("/accueil"); // → app/(public)/page.tsx si c’est ta home
+      // Si conflit de route, utilise par ex. router.replace("/accueil")
+    }, 2000);
+
+    return () => {
+      clearTimeout(outTimer);
+      clearTimeout(redirectTimer);
+    };
+  }, [router]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div
+      className={`
+        fixed inset-0 z-50 flex flex-col items-center justify-center
+        bg-white transition-opacity duration-400
+        ${phase === "out" ? "opacity-0" : "opacity-100"}
+      `}
+    >
+      {/* Ondes radio (derrière le logo) */}
+      <div className="absolute flex items-center justify-center">
+        <span className="wave wave-1" />
+        <span className="wave wave-2" />
+        <span className="wave wave-3" />
+      </div>
+
+      {/* Logo */}
+      <div
+        className={`
+          relative z-10 flex flex-col items-center
+          transition-all duration-700 ease-out
+          ${phase === "in" ? "scale-100 opacity-100" : "scale-95 opacity-0"}
+        `}
+        style={{
+          animation: phase === "in" ? "logoIn 0.7s ease-out forwards" : undefined,
+        }}
+      >
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/img/log.png"
+          alt="Radio Grâce-Espoir"
+          width={220}
+          height={220}
           priority
+          className="object-contain drop-shadow-lg"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
+
+      {/* Petit point d’écoute / signal */}
+      <div className="absolute bottom-16 flex items-center gap-2">
+        <span className="signal-dot" />
+        <p className="text-sm font-semibold tracking-widest text-[#2E8B2E]/80 uppercase">
+          En direct
+        </p>
+      </div>
+
+      <style jsx>{`
+        @keyframes logoIn {
+          0% {
+            opacity: 0;
+            transform: scale(0.75) translateY(12px);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .wave {
+          position: absolute;
+          border-radius: 50%;
+          border: 2px solid #f5c518;
+          opacity: 0;
+          animation: pulseWave 1.6s ease-out infinite;
+        }
+        .wave-1 {
+          width: 160px;
+          height: 160px;
+          animation-delay: 0s;
+        }
+        .wave-2 {
+          width: 220px;
+          height: 220px;
+          animation-delay: 0.35s;
+        }
+        .wave-3 {
+          width: 280px;
+          height: 280px;
+          animation-delay: 0.7s;
+        }
+
+        @keyframes pulseWave {
+          0% {
+            transform: scale(0.85);
+            opacity: 0.55;
+          }
+          100% {
+            transform: scale(1.25);
+            opacity: 0;
+          }
+        }
+
+        .signal-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #f5c518;
+          box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.5);
+          animation: signal 1.2s ease-out infinite;
+        }
+
+        @keyframes signal {
+          0% {
+            box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.55);
+          }
+          70% {
+            box-shadow: 0 0 0 10px rgba(245, 197, 24, 0);
+          }
+          100% {
+            box-shadow: 0 0 0 0 rgba(245, 197, 24, 0);
+          }
+        }
+      `}</style>
     </div>
   );
 }

@@ -1,0 +1,133 @@
+/**
+ * Données statiques — Émissions
+ * À remplir page par page
+ */
+
+import { Emission } from '@/types';
+
+export const emissions: Emission[] = [
+  {
+    id: '1',
+    title: 'Le Matin Inspiré',
+    slug: 'le-matin-inspire',
+    description: 'Commencez votre journée avec des prières, des méditations et des chants pour fortifier votre foi.',
+    schedule: 'Lun - Sam : 06h00 - 07h00',
+    presenter: 'Père Attobra',
+    duration: 60,
+    image: '/img/actu (1).jpg',
+  },
+  {
+    id: '2',
+    title: 'L’Évangile du Jour',
+    slug: 'evangile-du-jour',
+    description: 'Lecture quotidienne de l’Évangile suivie d’une méditation spirituelle.',
+    schedule: 'Tous les jours : 07h30 - 08h00',
+    presenter: 'Père Attobra',
+    duration: 30,
+    image: '/img/actu (2).jpg',
+  },
+  {
+    id: '3',
+    title: 'Parole de Vie',
+    slug: 'parole-de-vie',
+    description: 'Un enseignement biblique pour approfondir votre relation avec Dieu.',
+    schedule: 'Lun - Ven : 12h00 - 13h00',
+    presenter: 'Frère Emmanuel',
+    duration: 60,
+    image: '/img/actu (3).jpg',
+  },
+  {
+    id: '4',
+    title: 'Chapelet en Direct',
+    slug: 'chapelet-direct',
+    description: 'Prions ensemble le Saint Rosaire en direct depuis notre studio.',
+    schedule: 'Tous les jours : 15h00 - 15h30',
+    presenter: 'Communauté Grâce-Espoir',
+    duration: 30,
+    image: '/img/actu (4).jpg',
+  },
+  {
+    id: '5',
+    title: 'Prière & Délivrance',
+    slug: 'priere-delivrance',
+    description: 'Une émission consacrée à la prière d’intercession, à la guérison et à la délivrance.',
+    schedule: 'Mercredi : 20h00 - 21h30',
+    presenter: 'Père Attobra',
+    duration: 90,
+    image: '/img/actu (5).jpg',
+  },
+  {
+    id: '6',
+    title: 'Les Témoins de l’Espérance',
+    slug: 'temoins-esperance',
+    description: 'Des témoignages inspirants de foi, de conversion et de miracles.',
+    schedule: 'Vendredi : 19h00 - 20h00',
+    presenter: 'Marie-Claire Kouamé',
+    duration: 60,
+    image: '/img/actu (3).jpg',
+  },
+  {
+    id: '7',
+    title: 'Les Saints du Jour',
+    slug: 'saints-du-jour',
+    description: 'Découvrez chaque jour la vie d’un saint et son message pour notre époque.',
+    schedule: 'Tous les jours : 08h30 - 09h00',
+    presenter: 'Sœur Béatrice',
+    duration: 30,
+    image: '/images/emissions/saints.jpg',
+  },
+  {
+    id: '8',
+    title: 'Louange & Adoration',
+    slug: 'louange-adoration',
+    description: 'Un temps de musique chrétienne, de louange et d’adoration pour élever votre âme.',
+    schedule: 'Samedi : 18h00 - 20h00',
+    presenter: 'Équipe Louange Grâce-Espoir',
+    duration: 120,
+    image: '/images/emissions/louange.jpg',
+  },
+  {
+    id: '9',
+    title: 'Questions de Foi',
+    slug: 'questions-de-foi',
+    description: 'Des réponses claires aux questions sur la foi chrétienne et la vie spirituelle.',
+    schedule: 'Jeudi : 18h00 - 19h00',
+    presenter: 'Père Jean-Baptiste',
+    duration: 60,
+    image: '/images/emissions/questions-foi.jpg',
+  },
+  {
+    id: '10',
+    title: 'Espérance Jeunesse',
+    slug: 'esperance-jeunesse',
+    description: 'Une émission dédiée aux jeunes, à leurs défis et à leur croissance spirituelle.',
+    schedule: 'Samedi : 16h00 - 17h00',
+    presenter: 'Équipe Jeunesse',
+    duration: 60,
+    image: '/images/emissions/jeunesse.jpg',
+  },
+  {
+    id: '11',
+    title: 'Famille Chrétienne',
+    slug: 'famille-chretienne',
+    description: 'Conseils, témoignages et enseignements pour construire une famille unie dans le Christ.',
+    schedule: 'Dimanche : 17h00 - 18h00',
+    presenter: 'Couple Dominique & Clarisse',
+    duration: 60,
+    image: '/images/emissions/famille.jpg',
+  },
+  {
+    id: '12',
+    title: 'Veillée de Prière',
+    slug: 'veillee-de-priere',
+    description: 'Une soirée de prière, de chants et d’intercession en direct.',
+    schedule: 'Vendredi : 22h00 - 00h00',
+    presenter: 'Père Attobra',
+    duration: 120,
+    image: '/images/emissions/veillee.jpg',
+  },
+];
+
+export function getEmissionBySlug(slug: string): Emission | undefined {
+  return emissions.find((e) => e.slug === slug);
+}
