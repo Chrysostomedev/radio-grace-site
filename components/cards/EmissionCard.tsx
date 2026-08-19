@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { Emission } from '@/types';
@@ -9,7 +11,7 @@ export interface EmissionCardProps {
 
 export function EmissionCard({ emission }: EmissionCardProps) {
   return (
-    <Link href={`/emissions/${emission.slug}`} className="group block h-full">
+    <Link href={`/emissions/${emission.id}`} className="group block h-full">
       <article className="flex flex-col h-full rounded-3xl overflow-hidden bg-white border border-slate-200/80 shadow-2xs hover:shadow-xl hover:border-amber-300/80 transition-all duration-300 transform group-hover:-translate-y-1">
         
         {/* Visual Container */}
@@ -17,7 +19,7 @@ export function EmissionCard({ emission }: EmissionCardProps) {
           {emission.image ? (
             <Image
               src={emission.image}
-              alt={emission.title}
+              alt={emission.titre || ''}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -33,7 +35,7 @@ export function EmissionCard({ emission }: EmissionCardProps) {
           {emission.category && (
             <div className="absolute top-3 left-3 z-10">
               <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-slate-900/80 text-amber-300 backdrop-blur-md border border-white/10">
-                {emission.category}
+                Podcast
               </span>
             </div>
           )}
@@ -50,7 +52,7 @@ export function EmissionCard({ emission }: EmissionCardProps) {
         <div className="flex flex-col flex-1 p-6 justify-between space-y-4">
           <div className="space-y-2">
             <h3 className="font-extrabold text-lg text-slate-900 group-hover:text-[#004D20] transition-colors line-clamp-2 leading-snug">
-              {emission.title}
+              {emission.titre}
             </h3>
             {emission.description && (
               <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-normal">
@@ -76,10 +78,10 @@ export function EmissionCard({ emission }: EmissionCardProps) {
                 </div>
               ) : <div />}
 
-              {emission.duration && (
+              {emission.duree && (
                 <div className="flex items-center gap-1 text-slate-400 shrink-0 font-mono">
                   <Clock className="w-3.5 h-3.5" />
-                  <span>{emission.duration} min</span>
+                  <span>{emission.duree}</span>
                 </div>
               )}
             </div>

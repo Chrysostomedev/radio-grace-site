@@ -1,9 +1,10 @@
 import { PageHero } from '@/components/sections/PageHero';
-import { useEmissions } from '@/hooks/useEmissions';
+import { useProgrammes } from '@/hooks/useProgrammes';
 import { ProgrammesInteractive } from '@/components/sections/ProgrammesInteractive';
 
 export default function ProgrammesPage() {
-  const emissions = useEmissions();
+  const { data, isLoading } = useProgrammes();
+  const programmes = data?.data || [];
 
   return (
     <div className="pb-24 bg-[#FAF9F6] min-h-screen">
@@ -21,7 +22,13 @@ export default function ProgrammesPage() {
       {/* Main Section */}
       <section className="py-12 sm:py-16 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
-          <ProgrammesInteractive initialEmissions={emissions} />
+          {isLoading ? (
+            <div className="flex justify-center items-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#004D20]"></div>
+            </div>
+          ) : (
+            <ProgrammesInteractive initialEmissions={programmes} />
+          )}
         </div>
       </section>
     </div>

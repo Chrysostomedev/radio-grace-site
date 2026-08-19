@@ -61,13 +61,6 @@ export function PlayerBar() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#002C13]/90 backdrop-blur-md border-t border-[#CA8A04]/30 text-[#FAF9F6] shadow-2xl transition-all">
-      {/* Balise audio masquée mais fonctionnelle */}
-      <audio
-        ref={audioRef}
-        src={AUDIO_SRC}
-        preload="metadata"
-        onEnded={() => setIsPlaying(false)}
-      />
 
       <div className="max-w-7xl mx-auto px-4 py-2.5 sm:py-3 flex items-center justify-between gap-4">
         
@@ -107,15 +100,11 @@ export function PlayerBar() {
           
           {/* Play/Pause Button */}
           <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            aria-label={isPlaying ? 'Mettre en pause' : 'Lancer le direct'}
+            onClick={() => window.location.href = '/direct'}
+            aria-label={'Lancer le direct'}
             className="group relative flex items-center justify-center w-11 h-11 rounded-full bg-gradient-to-r from-[#EAB308] to-[#CA8A04] text-[#002C13] shadow-lg shadow-[#EAB308]/20 hover:scale-105 active:scale-95 transition-all duration-200"
           >
-            {isPlaying ? (
-              <Pause className="w-5 h-5 fill-current" />
-            ) : (
-              <Play className="w-5 h-5 fill-current translate-x-0.5" />
-            )}
+            <Play className="w-5 h-5 fill-current translate-x-0.5" />
           </button>
 
           {/* Contrôle Volume */}

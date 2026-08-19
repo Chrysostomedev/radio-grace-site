@@ -1,23 +1,12 @@
-/**
- * Hook — Accès aux actualités (data statique)
- * À terme, à brancher sur API Laravel
- */
+// hooks/useActualites.ts
+"use client";
 
-import { actualites, getActualiteBySlug, getActualitesByCategory, searchActualites } from '@/lib/data/actualites';
-import { Actualite } from '@/types';
+import { useQuery } from '@tanstack/react-query';
+import { actualitesService } from '../services/actualites.service';
 
-export function useActualites(): Actualite[] {
-  return actualites;
-}
-
-export function useActualiteBySlug(slug: string): Actualite | undefined {
-  return getActualiteBySlug(slug);
-}
-
-export function useActualitesByCategory(category: Actualite['category']): Actualite[] {
-  return getActualitesByCategory(category);
-}
-
-export function useSearchActualites(query: string): Actualite[] {
-  return searchActualites(query);
-}
+export const useActualites = (page = 1, perPage = 10) => {
+  return useQuery({
+    queryKey: ['actualites', page, perPage],
+    queryFn: () => actualitesService.getActualites(page, perPage),
+  });
+};

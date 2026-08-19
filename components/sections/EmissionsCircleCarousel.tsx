@@ -5,92 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Headphones, Radio } from 'lucide-react';
 
-type Emission = {
-  id: string;
-  titre: string;
-  sousTitre?: string;
-  image: string;
-  href?: string;
-  horaires?: string;
-};
-
-const EMISSIONS: Emission[] = [
-  {
-    id: '1',
-    titre: 'Louange Matinale',
-    sousTitre: 'Réveil spirituel',
-    image: '/img/pere.jpg',
-    href: '/emissions/louange-matinale',
-    horaires: '06h00',
-  },
-  {
-    id: '2',
-    titre: 'Parole Vivante',
-    sousTitre: 'Enseignement',
-    image: '/img/hero1.jpg',
-    href: '/emissions/parole-vivante',
-    horaires: '10h00',
-  },
-   {
-    id: '5',
-    titre: 'Gospel & Adoration',
-    sousTitre: 'Musique sacrée',
-    image: '/img/pere.jpg',
-    href: '/emissions/gospel',
-    horaires: '14h00',
-  },
-  {
-    id: '6',
-    titre: 'Prières du Soir',
-    sousTitre: 'Communion',
-    image: '/img/hero2.jpg',
-    href: '/emissions/prieres-du-soir',
-    horaires: '20h00',
-  },
-   {
-    id: '7',
-    titre: 'Louange Matinale',
-    sousTitre: 'Réveil spirituel',
-    image: '/img/pere.jpg',
-    href: '/emissions/louange-matinale',
-    horaires: '06h00',
-  },
-  {
-    id: '8',
-    titre: 'Jeunesse en Foi',
-    sousTitre: 'Nouvelle génération',
-    image: '/img/her.jpg',
-    href: '/emissions/jeunesse',
-    horaires: '16h00',
-  },
-  {
-    id: '9',
-    titre: 'Gospel & Adoration',
-    sousTitre: 'Musique sacrée',
-    image: '/img/pere.jpg',
-    href: '/emissions/gospel',
-    horaires: '14h00',
-  },
-  {
-    id: '11',
-    titre: 'Témoignages',
-    sousTitre: 'Vies transformées',
-    image: '/img/hero1.jpg',
-    href: '/emissions/temoignages',
-    horaires: '18h00',
-  },
-   {
-    id: '10',
-    titre: 'Louange Matinale',
-    sousTitre: 'Réveil spirituel',
-    image: '/img/pere.jpg',
-    href: '/emissions/louange-matinale',
-    horaires: '06h00',
-  },
-];
+import { usePodcasts } from '@/hooks/usePodcasts';
 
 export function EmissionsCircleCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const { data: podcastsResponse } = usePodcasts(1, 10);
+  
+  const EMISSIONS = podcastsResponse?.data || [];
 
   const scroll = (dir: 'left' | 'right') => {
     const el = trackRef.current;
@@ -156,39 +77,39 @@ export function EmissionsCircleCarousel() {
                 {/* Anneau or animé au hover */}
                 <div className="absolute inset-0 rounded-full border-2 border-[#CA8A04]/30 group-hover:border-[#CA8A04] group-hover:scale-105 transition-all duration-500" />
                 <div className="absolute inset-1.5 rounded-full overflow-hidden shadow-xl shadow-[#004D20]/15 group-hover:shadow-[#CA8A04]/25 transition-shadow duration-500">
-                  <Image
-                    src={em.image}
-                    alt={em.titre}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                    sizes="160px"
-                  />
-                  {/* Overlay hover */}
-                  <div className="absolute inset-0 bg-[#001A0B]/0 group-hover:bg-[#001A0B]/35 transition-colors duration-300 flex items-center justify-center">
-                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-12 h-12 rounded-full bg-[#CA8A04] text-[#001A0B] flex items-center justify-center shadow-lg scale-75 group-hover:scale-100">
-                      <Headphones className="w-5 h-5" />
-                    </span>
+                    <Image
+                      src={em.image ? `http://127.0.0.1:8000/storage/${em.image}` : '/img/hero1.jpg'}
+                      alt={em.titre}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700"
+                      sizes="160px"
+                    />
+                    {/* Overlay hover */}
+                    <div className="absolute inset-0 bg-[#001A0B]/0 group-hover:bg-[#001A0B]/35 transition-colors duration-300 flex items-center justify-center">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-12 h-12 rounded-full bg-[#CA8A04] text-[#001A0B] flex items-center justify-center shadow-lg scale-75 group-hover:scale-100">
+                        <Headphones className="w-5 h-5" />
+                      </span>
+                    </div>
                   </div>
+
+                  {/* Badge horaire */}
+                  {em.duree && (
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-[#004D20] text-amber-300 text-[10px] font-black tracking-wide shadow-md whitespace-nowrap">
+                      {em.duree}
+                    </span>
+                  )}
                 </div>
 
-                {/* Badge horaire */}
-                {em.horaires && (
-                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-[#004D20] text-amber-300 text-[10px] font-black tracking-wide shadow-md whitespace-nowrap">
-                    {em.horaires}
-                  </span>
-                )}
-              </div>
-
-              {/* Texte */}
-              <div className="mt-5 text-center px-1">
-                <h3 className="text-sm font-black text-[#001A0B] group-hover:text-[#CA8A04] transition-colors leading-tight">
-                  {em.titre}
-                </h3>
-                {em.sousTitre && (
-                  <p className="mt-1 text-[11px] text-[#163A2C]/50 font-medium">
-                    {em.sousTitre}
-                  </p>
-                )}
+                {/* Texte */}
+                <div className="mt-5 text-center px-1">
+                  <h3 className="text-sm font-black text-[#001A0B] group-hover:text-[#CA8A04] transition-colors leading-tight line-clamp-1">
+                    {em.titre}
+                  </h3>
+                  {em.description && (
+                    <p className="mt-1 text-[11px] text-[#163A2C]/50 font-medium line-clamp-1">
+                      {em.description}
+                    </p>
+                  )}
               </div>
             </Link>
           ))}

@@ -7,7 +7,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useHeroSlides } from '@/hooks/useHeroSlides';
+import { useHeroSlidesQuery } from '@/hooks/useAccueil';
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -66,7 +66,7 @@ const FALLBACK_SLIDES = [
 ];
 
 export function HeroCarousel() {
-  const customSlides = useHeroSlides();
+  const { data: customSlides, isLoading } = useHeroSlidesQuery();
   const slides = (customSlides && customSlides.length > 0) ? customSlides : FALLBACK_SLIDES;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -155,6 +155,8 @@ export function HeroCarousel() {
             <div className="pt-3 flex flex-wrap items-center gap-4">
               <Link
                 href={activeSlide.cta.href}
+                target={activeSlide.cta.href.startsWith("http") ? "_blank" : undefined}
+                rel={activeSlide.cta.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-[#CA8A04] to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm transition-all duration-300 shadow-xl shadow-amber-500/20 hover:scale-105 active:scale-95 group/btn"
               >
                 <Volume2 className="w-4 h-4" />

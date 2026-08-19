@@ -5,14 +5,18 @@
  */
 
 import { useState, useMemo } from 'react';
+import Script from 'next/script';
 import { PageHero } from '@/components/sections/PageHero';
 import { ActualiteCard } from '@/components/cards/ActualiteCard';
 import { SearchInput } from '@/components/form/SearchInput';
 import { useActualites, useSearchActualites } from '@/hooks/useActualites';
-import { Radio, Newspaper, Zap, Layers, Sparkles, AlertCircle, RefreshCw } from 'lucide-react';
+import { Radio, Newspaper, Zap, Layers, Sparkles, AlertCircle, RefreshCw, Globe } from 'lucide-react';
+import { PubliciteBlock } from '@/components/sections/PubliciteBlock';
 
 export default function ActualitesPage() {
-  const actualites = useActualites() || [];
+  const { data, isLoading } = useActualites();
+  const actualites = data?.data || [];
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'flash' | 'normal'>('all');
 
@@ -22,23 +26,24 @@ export default function ActualitesPage() {
 
     // Filtre catégorie
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter((a) => a.category === selectedCategory);
+      const catName = selectedCategory === 'flash' ? 'flash' : 'normal';
+      filtered = filtered.filter((a) => a.categorie?.nom?.toLowerCase().includes(catName));
     }
 
     // Filtre recherche
     if (searchQuery.trim() !== '') {
       filtered = filtered.filter(
         (a) =>
-          a.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          a.excerpt?.toLowerCase().includes(searchQuery.toLowerCase())
+          a.titre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          a.resume?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
     return filtered;
   }, [actualites, searchQuery, selectedCategory]);
 
-  const flashCount = useMemo(() => actualites.filter((a) => a.category === 'flash').length, [actualites]);
-  const normalCount = useMemo(() => actualites.filter((a) => a.category === 'normal').length, [actualites]);
+  const flashCount = useMemo(() => actualites.filter((a) => a.categorie?.nom?.toLowerCase().includes('flash')).length, [actualites]);
+  const normalCount = useMemo(() => actualites.filter((a) => !a.categorie?.nom?.toLowerCase().includes('flash')).length, [actualites]);
 
   return (
     <div className="pb-24 bg-[#FAF9F6] min-h-screen">
@@ -160,6 +165,9 @@ export default function ActualitesPage() {
                 </div>
               </div>
 
+              {/* Bloc Partenaire / Publicité */}
+              <PubliciteBlock position="sidebar" />
+
             </div>
           </aside>
 
@@ -222,7 +230,37 @@ export default function ActualitesPage() {
           </main>
 
         </div>
+
+        {/* === SECTION ACTUALITÉ INTERNATIONALE — VATICAN NEWS === */}
+        <section className="mt-12">
+          <div className="flex items-start gap-3 mb-6">
+            <span className="w-1.5 h-8 bg-[#CA8A04] rounded-full shrink-0 mt-0.5" />
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-widest text-[#CA8A04]">
+                Actualité internationale
+              </span>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-none mt-1 flex items-center gap-2">
+                <Globe className="w-5 h-5 text-[#004D20]" />
+                Vatican News
+              </h2>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+            <p className="text-xs text-slate-500 mb-4 font-medium">Dernières nouvelles du Vatican et de l&apos;Église universelle</p>
+            <div className="mt-2">
+              {/* @ts-ignore */}
+              <vaticannews-widget lang="fr" fontSize="14" />
+            </div>
+          </div>
+        </section>
+
       </div>
+
+      <Script
+        src="https://www.vaticannews.va/widget.js"
+        strategy="lazyOnload"
+      />
     </div>
   );
 }
