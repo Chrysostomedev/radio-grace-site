@@ -68,9 +68,7 @@ export function Header() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-extrabold text-base sm:text-lg text-[#004D20] tracking-tight leading-tight group-hover:text-[#007A33] transition-colors">
-              RADIO GRÂCE-ESPOIR
-            </span>
+           
             <span className="text-[10px] sm:text-xs font-bold text-[#CA8A04] tracking-wider uppercase">
               L'Evangile au coeur de l'Homme
             </span>
