@@ -17,7 +17,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
           {/* Onglets */}
           <div className="mt-8 inline-flex gap-2 bg-[#0E241C]/60 p-1.5 rounded-2xl border border-[#F0A93E]/20">
             <Link
-              href="/politique-de-confidentialite"
+              href="/legal/politique-de-confidentialite"
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-[#FBF6EA]/70 hover:text-[#F0A93E] hover:bg-[#F0A93E]/10 transition-all"
             >
               <Shield size={16} />

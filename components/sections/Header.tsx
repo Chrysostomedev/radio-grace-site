@@ -67,12 +67,7 @@ export function Header() {
               priority
             />
           </div>
-          <div className="flex flex-col">
-           
-            <span className="text-[10px] sm:text-xs font-bold text-[#CA8A04] tracking-wider uppercase">
-              L'Evangile au coeur de l'Homme
-            </span>
-          </div>
+          
         </Link>
 
         {/* Navigation Desktop */}

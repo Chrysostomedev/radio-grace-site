@@ -160,7 +160,7 @@ export default function AccueilPage() {
               </Link>
 
               <Link
-                href="/dons"
+                href="/don"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-transparent hover:bg-white/10 text-white font-bold text-xs sm:text-sm rounded-xl border border-white/30 transition-all duration-200"
               >
                 <span>Soutenir la radio</span>
