@@ -43,28 +43,140 @@ export default function AboutPage() {
       <ValuesSection />
 
       {/* Équipe */}
-      <section className="py-16 px-4 bg-gradient-to-b from-white via-[#FAF9F6] to-white">
+      <section className="py-20 px-4 bg-gradient-to-b from-white via-[#FAF9F6] to-white">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#004D20] mb-8 text-center tracking-tight">
-            Notre Équipe
-          </h2>
+          <div className="mb-16 text-center">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#004D20] mb-3 tracking-tight">
+              Notre Équipe
+            </h2>
+            <p className="text-slate-600 max-w-2xl mx-auto text-sm sm:text-base">
+              Des personnes dévouées travaillant ensemble pour apporter l'espoir et la lumière de la foi à travers nos ondes.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Team member placeholder */}
-            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200/80 text-center">
-              <div className="w-full h-48 bg-gradient-to-br from-[#004D20] to-[#002C13] flex items-center justify-center text-white text-3xl">
-                🎙️
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            {/* Carte 1 - Directeur */}
+            <div className="group h-full">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 h-full flex flex-col">
+                <div className="relative w-full h-56 bg-gradient-to-br from-[#004D20] to-[#002C13] overflow-hidden">
+                  <img 
+                    src="/img/pere.jpg" 
+                    alt="Père Attobra" 
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002C13]/80 via-transparent to-transparent" />
+                </div>
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-[#004D20] text-lg leading-snug">Père Attobra</h4>
+                    <p className="text-sm text-[#CA8A04] font-bold mt-1">Directeur Général</p>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-3 leading-relaxed">
+                    Visionnaire spirituel et leader de la communauté Grâce-Espoir.
+                  </p>
+                </div>
               </div>
-              <div className="p-5">
-                <h4 className="font-bold text-[#004D20] text-lg">À définir</h4>
-                <p className="text-sm text-[#CA8A04] font-medium">Rôle à définir</p>
+            </div>
+
+            {/* Carte 2 - Animateur */}
+            <div className="group h-full">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 h-full flex flex-col">
+                <div className="relative w-full h-56 bg-gradient-to-br from-[#004D20] to-[#002C13] overflow-hidden">
+                  <img 
+                    src="/img/actu (5).jpg" 
+                    alt="Animateur" 
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002C13]/80 via-transparent to-transparent" />
+                </div>
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-[#004D20] text-lg leading-snug">Assalé David</h4>
+                    <p className="text-sm text-[#CA8A04] font-bold mt-1">Animateur Principal</p>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-3 leading-relaxed">
+                    La voix incontournable de nos matinales spirituelles et inspiratrices.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Carte 3 - Responsable Contenu */}
+            <div className="group h-full">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 h-full flex flex-col">
+                <div className="relative w-full h-56 bg-gradient-to-br from-[#004D20] to-[#002C13] overflow-hidden">
+                  <img 
+                    src="/img/emis2.jpg" 
+                    alt="Responsable Contenu" 
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002C13]/80 via-transparent to-transparent" />
+                </div>
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-[#004D20] text-lg leading-snug">Elvire Kadjo</h4>
+                    <p className="text-sm text-[#CA8A04] font-bold mt-1">Responsable Contenu</p>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-3 leading-relaxed">
+                    Crée et produit les contenus spirituels et éducatifs de qualité.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Carte 4 - Coordinateur Technique */}
+            <div className="group h-full">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 h-full flex flex-col">
+                <div className="relative w-full h-56 bg-gradient-to-br from-[#004D20] to-[#002C13] overflow-hidden">
+                  <img 
+                    src="/img/onboard.jpg" 
+                    alt="Coordinateur Technique" 
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002C13]/80 via-transparent to-transparent" />
+                </div>
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-[#004D20] text-lg leading-snug">Jean-Marc Koffi</h4>
+                    <p className="text-sm text-[#CA8A04] font-bold mt-1">Coordinateur Technique</p>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-3 leading-relaxed">
+                    Assure la qualité technique et la continuité de nos diffusions.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Carte 5 - Responsable Communauté */}
+            <div className="group h-full sm:col-span-2 lg:col-span-1">
+              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200/80 h-full flex flex-col">
+                <div className="relative w-full h-56 bg-gradient-to-br from-[#004D20] to-[#002C13] overflow-hidden">
+                  <img 
+                    src="/img/hero1.jpg" 
+                    alt="Responsable Communauté" 
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#002C13]/80 via-transparent to-transparent" />
+                </div>
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h4 className="font-extrabold text-[#004D20] text-lg leading-snug">Marie Kouassi</h4>
+                    <p className="text-sm text-[#CA8A04] font-bold mt-1">Communauté & Engagements</p>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-3 leading-relaxed">
+                    Bâtit et renforce les liens avec notre communauté d'auditeurs.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <p className="text-center text-slate-500 mt-8 text-sm italic font-medium">
-            Les membres de notre équipe seront présentés très bientôt.
-          </p>
+          <div className="mt-12 p-8 rounded-2xl bg-gradient-to-r from-[#004D20]/5 to-[#CA8A04]/5 border border-slate-200/80 text-center">
+            <p className="text-slate-700 text-sm leading-relaxed">
+              <span className="font-bold text-[#004D20]">Une équipe d'exception</span> au service de la foi et de l'espoir.
+              Chaque membre apporte son expertise et sa passion pour la mission de Radio Grâce-Espoir.
+            </p>
+          </div>
         </div>
       </section>
     </div>

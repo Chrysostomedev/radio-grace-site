@@ -1,266 +1,117 @@
 'use client';
 
-/**
- * Page — Actualités (Liste + Filtres + Recherche)
- */
-
-import { useState, useMemo } from 'react';
-import Script from 'next/script';
-import { PageHero } from '@/components/sections/PageHero';
+import { useActualites } from '@/hooks/useActualites';
 import { ActualiteCard } from '@/components/cards/ActualiteCard';
-import { SearchInput } from '@/components/form/SearchInput';
-import { useActualites, useSearchActualites } from '@/hooks/useActualites';
-import { Radio, Newspaper, Zap, Layers, Sparkles, AlertCircle, RefreshCw, Globe } from 'lucide-react';
-import { PubliciteBlock } from '@/components/sections/PubliciteBlock';
+import { PageHero } from '@/components/sections/PageHero';
+import { ArrowRight, Search } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function ActualitesPage() {
-  const { data, isLoading } = useActualites();
-  const actualites = data?.data || [];
-  
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'flash' | 'normal'>('all');
+  const [page, setPage] = useState(1);
+  const { data: actualitesData, isLoading } = useActualites(page, 12);
 
-  // Filtrage combiné avec mémoïsation
-  const filteredActualites = useMemo(() => {
-    let filtered = actualites;
-
-    // Filtre catégorie
-    if (selectedCategory !== 'all') {
-      const catName = selectedCategory === 'flash' ? 'flash' : 'normal';
-      filtered = filtered.filter((a) => a.categorie?.nom?.toLowerCase().includes(catName));
-    }
-
-    // Filtre recherche
-    if (searchQuery.trim() !== '') {
-      filtered = filtered.filter(
-        (a) =>
-          a.titre.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          a.resume?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    return filtered;
-  }, [actualites, searchQuery, selectedCategory]);
-
-  const flashCount = useMemo(() => actualites.filter((a) => a.categorie?.nom?.toLowerCase().includes('flash')).length, [actualites]);
-  const normalCount = useMemo(() => actualites.filter((a) => !a.categorie?.nom?.toLowerCase().includes('flash')).length, [actualites]);
+  const actualites = actualitesData?.data || [];
+  const meta = actualitesData?.meta;
+  const hasNextPage = meta && page < meta.last_page;
+  const hasPrevPage = page > 1;
 
   return (
-    <div className="pb-24 bg-[#FAF9F6] min-h-screen">
-      {/* En-tête / Hero */}
-    
+    <div className="min-h-screen bg-[#FAF9F6]">
+      {/* Hero */}
       <PageHero
-  title="Actualités & Flashs"
-  subtitle="Suivez l'actualité de la station, nos événements et communiqués"
-  image="/img/hero1.jpg"
+        title="Actualités"
+        subtitle="Restez informé de toutes les actualités de l'Église et de la vie sociale"
         breadcrumb={[
-          { label: 'Accueil', href: '/' },
-          { label: 'Actualités' },
+          { label: 'Accueil', href: '/accueil' },
+          { label: 'Actualités', href: '/actualites' },
         ]}
-/>
+      />
 
-      {/* Conteneur principal */}
-      <div className="py-12 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
-          
-          {/* SIDEBAR (4 Colonnes sur LG) */}
-          <aside className="lg:col-span-4">
-            <div className="sticky top-24 space-y-6">
-              
-              {/* Carte de Recherche & Filtres */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-6">
-                
-                {/* Module de recherche */}
-                <div>
-                  <h3 className="font-extrabold text-[#004D20] text-base mb-3 flex items-center gap-2">
-                    <span>Rechercher un article</span>
-                  </h3>
-                  <SearchInput onSearch={setSearchQuery} />
-                </div>
+      {/* Filtres et Recherche */}
+      <section className="py-8 px-4 sm:px-6 max-w-7xl mx-auto border-b border-slate-200">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <span className="text-xs font-bold uppercase text-slate-500 tracking-wider">
+              {meta?.total || 0} actualités
+            </span>
+            <p className="text-sm text-slate-600 mt-1">
+              Page {meta?.current_page || 1} sur {meta?.last_page || 1}
+            </p>
+          </div>
+        </div>
+      </section>
 
-                {/* Filtre par Catégories */}
-                <div>
-                  <h3 className="font-extrabold text-[#004D20] text-base mb-3">
-                    Catégories
-                  </h3>
-                  <div className="flex flex-col gap-2">
-                    
-                    {/* Bouton Toutes */}
-                    <button
-                      onClick={() => setSelectedCategory('all')}
-                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
-                        selectedCategory === 'all'
-                          ? 'bg-[#004D20] text-white shadow-md'
-                          : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/60'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <Layers className={`w-4 h-4 ${selectedCategory === 'all' ? 'text-[#EAB308]' : 'text-slate-400'}`} />
-                        <span>Toutes les actualités</span>
-                      </span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${
-                        selectedCategory === 'all' ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
-                      }`}>
-                        {actualites.length}
-                      </span>
-                    </button>
-
-                    {/* Bouton Flash Info */}
-                    <button
-                      onClick={() => setSelectedCategory('flash')}
-                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
-                        selectedCategory === 'flash'
-                          ? 'bg-[#CA8A04] text-[#002C13] shadow-md'
-                          : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/60'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <Zap className={`w-4 h-4 ${selectedCategory === 'flash' ? 'fill-current' : 'text-amber-500'}`} />
-                        <span>Flashs Info</span>
-                      </span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${
-                        selectedCategory === 'flash' ? 'bg-[#002C13]/10 text-[#002C13]' : 'bg-slate-200 text-slate-600'
-                      }`}>
-                        {flashCount}
-                      </span>
-                    </button>
-
-                    {/* Bouton Articles Réguliers */}
-                    <button
-                      onClick={() => setSelectedCategory('normal')}
-                      className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 ${
-                        selectedCategory === 'normal'
-                          ? 'bg-[#004D20] text-white shadow-md'
-                          : 'bg-slate-50 text-slate-700 hover:bg-slate-100 border border-slate-200/60'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2.5">
-                        <Newspaper className={`w-4 h-4 ${selectedCategory === 'normal' ? 'text-[#EAB308]' : 'text-slate-400'}`} />
-                        <span>Articles & Dossiers</span>
-                      </span>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${
-                        selectedCategory === 'normal' ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
-                      }`}>
-                        {normalCount}
-                      </span>
-                    </button>
-
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Encart Direct / Information Station */}
-              <div className="relative overflow-hidden bg-gradient-to-br from-[#004D20] to-[#002C13] text-white rounded-2xl p-6 shadow-md border border-[#EAB308]/20">
-                <Sparkles className="absolute -top-3 -right-3 w-20 h-20 text-[#EAB308]/10 pointer-events-none" />
-                <div className="relative z-10 space-y-3">
-                  <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-[#EAB308]/20 text-[#EAB308] text-xs font-bold uppercase tracking-wider border border-[#EAB308]/30">
-                    <Radio className="w-3.5 h-3.5 animate-pulse" />
-                    <span>Direct Antenne</span>
-                  </div>
-                  <h4 className="font-extrabold text-lg leading-tight">Ne manquez aucun communiqué</h4>
-                  <p className="text-xs text-white/80 leading-relaxed font-normal">
-                    Écoutez la radio en direct pour être informé instantanément des alertes et des messages de la congrégation.
-                  </p>
-                </div>
-              </div>
-
-              {/* Bloc Partenaire / Publicité */}
-              <PubliciteBlock position="sidebar" />
-
-            </div>
-          </aside>
-
-          {/* CONTENU PRINCIPAL (8 Colonnes sur LG) */}
-          <main className="lg:col-span-8 space-y-6">
-            
-            {/* Barre de titre & Compteur */}
-            <div className="flex items-center justify-between bg-white px-6 py-4 rounded-2xl border border-slate-200/80 shadow-2xs">
-              <div className="flex items-center gap-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#CA8A04]" />
-                <h2 className="text-lg sm:text-xl font-extrabold text-[#004D20]">
-                  {filteredActualites.length} publication{filteredActualites.length > 1 ? 's' : ''}
-                </h2>
-              </div>
-
-              {(searchQuery || selectedCategory !== 'all') && (
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedCategory('all');
-                  }}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#CA8A04] hover:text-[#004D20] transition-colors"
-                >
-                  <RefreshCw className="w-3.5 h-3.5" />
-                  <span>Réinitialiser</span>
-                </button>
-              )}
+      {/* Grille Actualités */}
+      <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        {isLoading ? (
+          <div className="py-20 text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#004D20] mx-auto mb-4"></div>
+            <p className="text-slate-600">Chargement des actualités...</p>
+          </div>
+        ) : actualites && actualites.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12">
+              {actualites.map((actualite: any) => (
+                <ActualiteCard key={actualite.id} actualite={actualite} />
+              ))}
             </div>
 
-            {/* Grille des cartes d'actualité */}
-            {filteredActualites.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredActualites.map((actualite) => (
-                  <ActualiteCard key={actualite.id || actualite.slug} actualite={actualite} />
-                ))}
-              </div>
-            ) : (
-              /* État vide si aucun résultat */
-              <div className="bg-white rounded-2xl p-12 text-center border border-slate-200/80 shadow-xs space-y-4">
-                <div className="w-16 h-16 rounded-2xl bg-amber-50 text-[#CA8A04] flex items-center justify-center mx-auto">
-                  <AlertCircle className="w-8 h-8" />
-                </div>
-                <div className="space-y-1">
-                  <h3 className="text-lg font-extrabold text-[#004D20]">Aucun résultat trouvé</h3>
-                  <p className="text-sm text-slate-500 max-w-md mx-auto">
-                    Nous n'avons trouvé aucune actualité correspondant à votre recherche. Essayez de modifier vos filtres.
-                  </p>
-                </div>
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedCategory('all');
-                  }}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#004D20] text-white text-xs font-bold hover:bg-[#002C13] transition-colors shadow-sm"
-                >
-                  <span>Afficher toutes les actualités</span>
-                </button>
+            {/* Pagination */}
+            {(hasNextPage || hasPrevPage) && (
+              <div className="flex items-center justify-center gap-4 py-8 border-t border-slate-200 mt-8">
+                {hasPrevPage && (
+                  <button
+                    onClick={() => setPage(page - 1)}
+                    className="px-4 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-900 font-bold transition-colors text-sm"
+                  >
+                    ← Précédent
+                  </button>
+                )}
+
+                <span className="text-sm font-medium text-slate-600">
+                  Page {page} sur {meta?.last_page}
+                </span>
+
+                {hasNextPage && (
+                  <button
+                    onClick={() => setPage(page + 1)}
+                    className="px-4 py-2 rounded-lg bg-[#004D20] hover:bg-[#003817] text-white font-bold transition-colors text-sm"
+                  >
+                    Suivant →
+                  </button>
+                )}
               </div>
             )}
-          </main>
+          </>
+        ) : (
+          <div className="py-20 px-4 text-center rounded-2xl bg-white border border-slate-100 shadow-sm">
+            <p className="text-slate-500 text-sm font-medium">
+              Aucune actualité disponible pour le moment.
+            </p>
+          </div>
+        )}
+      </section>
 
-        </div>
-
-        {/* === SECTION ACTUALITÉ INTERNATIONALE — VATICAN NEWS === */}
-        <section className="mt-12">
-          <div className="flex items-start gap-3 mb-6">
-            <span className="w-1.5 h-8 bg-[#CA8A04] rounded-full shrink-0 mt-0.5" />
+      {/* Newsletter CTA */}
+      <section className="py-12 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="bg-gradient-to-r from-[#004D20] to-[#003817] rounded-2xl p-8 sm:p-12 text-white">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#CA8A04]">
-                Actualité internationale
-              </span>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-none mt-1 flex items-center gap-2">
-                <Globe className="w-5 h-5 text-[#004D20]" />
-                Vatican News
-              </h2>
+              <h3 className="text-2xl font-bold mb-2">Recevez nos actualités</h3>
+              <p className="text-sm sm:text-base opacity-90">
+                Abonnez-vous à notre infolettre pour ne rien manquer.
+              </p>
             </div>
+            <Link
+              href="/#newsletter"
+              className="shrink-0 px-6 py-3 bg-[#CA8A04] hover:bg-[#b07803] text-slate-950 font-bold rounded-xl transition-colors text-sm whitespace-nowrap"
+            >
+              S'abonner
+            </Link>
           </div>
-
-          <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
-            <p className="text-xs text-slate-500 mb-4 font-medium">Dernières nouvelles du Vatican et de l&apos;Église universelle</p>
-            <div className="mt-2">
-              {/* @ts-ignore */}
-              <vaticannews-widget lang="fr" fontSize="14" />
-            </div>
-          </div>
-        </section>
-
-      </div>
-
-      <Script
-        src="https://www.vaticannews.va/widget.js"
-        strategy="lazyOnload"
-      />
+        </div>
+      </section>
     </div>
   );
 }

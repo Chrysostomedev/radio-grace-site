@@ -94,7 +94,7 @@ export function Footer() {
                   {BRAND.name}
                 </span>
                 <span className="text-xs text-[#EAB308] font-semibold tracking-wider uppercase">
-                  {BRAND.tagline || 'La Voix Divine'}
+                  {BRAND.tagline || 'L\'Evangile au coeur de l\'Homme'}
                 </span>
               </div>
             </div>
@@ -119,15 +119,8 @@ export function Footer() {
                 >
                   <FacebookIcon className="w-4 h-4" />
                 </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#FAF9F6]/80 hover:text-[#EAB308] hover:bg-white/10 hover:border-[#EAB308]/40 transition-all"
-                  aria-label="LinkedIn"
-                >
-                  <LinkedInIcon className="w-4 h-4" />
-                </a>
+               
+                 
                 <a
                   href="https://youtube.com"
                   target="_blank"
@@ -138,7 +131,7 @@ export function Footer() {
                   <YoutubeIcon className="w-4 h-4" />
                 </a>
                 <a
-                  href="https://wa.me/22500000000"
+                  href="https://wa.me/2250779379838"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#FAF9F6]/80 hover:text-emerald-400 hover:bg-white/10 hover:border-emerald-500/40 transition-all"
@@ -219,7 +212,7 @@ export function Footer() {
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#EAB308] flex-shrink-0" />
                 <a href={`tel:${CONTACT_INFO.phone}`} className="hover:text-white transition-colors">
-                  {CONTACT_INFO.phone || '+225 07 00 00 00 00'}
+                  {CONTACT_INFO.phone || '+225 07 79 37 98 38'}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">
@@ -246,10 +239,10 @@ export function Footer() {
             © {currentYear} <span className="font-semibold text-white">{BRAND.name}</span>. Tous droits réservés.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="/mentions-legales" className="hover:text-[#EAB308] transition-colors">
+            <Link href="/legal/mentions-legales" className="hover:text-[#EAB308] transition-colors">
               Mentions Légales
             </Link>
-            <Link href="/confidentialite" className="hover:text-[#EAB308] transition-colors">
+            <Link href="/legal/politique-de-confidentialite" className="hover:text-[#EAB308] transition-colors">
               Politique de Confidentialité
             </Link>
             <Link href="/contacts" className="hover:text-[#EAB308] transition-colors">

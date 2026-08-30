@@ -23,14 +23,7 @@ const AUTOPLAY_INTERVAL = 6000;
 
 // Visualisations de secours ultra-qualitatives (4 à 5 visuels immersive)
 const FALLBACK_SLIDES = [
-  {
-    id: '1',
-    image: '/img/actu (5).jpg',
-    badge: 'En Direct Studio',
-    title: 'La Voix qui Touche les Cœurs',
-    subtitle: 'Écoutez nos émissions spirituelles, nos louanges et nos partages bibliques 24h/24 et 7j/7.',
-    cta: { label: 'Écouter le Direct', href: '/direct' }
-  },
+
   {
     id: '2',
     image: '/img/hero1.jpg',
@@ -132,11 +125,7 @@ export function HeroCarousel() {
       <div className="absolute inset-0 z-20 flex flex-col justify-end sm:justify-center px-6 sm:px-12 lg:px-16 pb-20 sm:pb-0">
         <div className="max-w-3xl space-y-4 sm:space-y-6">
           
-          {/* Badge thématique */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-400/40 text-amber-300 text-xs font-black uppercase tracking-wider w-fit shadow-md">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>{activeSlide?.badge || 'À la Une'}</span>
-          </div>
+         
 
           {/* Titre Principal dynamique */}
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight sm:leading-none drop-shadow-lg">

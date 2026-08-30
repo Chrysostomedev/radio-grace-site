@@ -5,19 +5,23 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: '192.168.1.80',
-        port: '8000',
-        pathname: '/storage/**',
+        hostname: 'rge-radio.duckdns.org',
+      },
+      {
+        protocol: 'https',
+        hostname: 'rge-radio.duckdns.org',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
       },
       {
         protocol: 'http',
         hostname: '127.0.0.1',
-        port: '8000',
-        pathname: '/storage/**',
       },
       {
-        protocol: 'https',
-        hostname: '**',
+        protocol: 'http',
+        hostname: '192.168.1.85',
       },
     ],
   },

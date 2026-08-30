@@ -6,7 +6,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Actualite } from '@/types';
+import { Actualite } from '@/types/actualite.types';
 import { formatDateFR, truncate } from '@/lib/utils';
 import { Calendar, User, ArrowUpRight, Zap, Newspaper, Clock } from 'lucide-react';
 
@@ -15,12 +15,12 @@ export interface ActualiteCardProps {
 }
 
 export function ActualiteCard({ actualite }: ActualiteCardProps) {
-  // ⚠️ categorie.nom est actuellement toujours null côté API — fallback sur slug
-  const categorieLabel = actualite.categorie?.nom ?? actualite.categorie?.slug ?? null;
+  // ⚠️ categorie.nom est actuellement toujours null côté API — fallback sur défaut
+  const categorieLabel = actualite.categorie?.nom ?? 'Actualité';
   const isFlash = categorieLabel?.toLowerCase().includes('flash');
 
   return (
-    <Link href={`/actualites/${actualite.slug}`} className="group block h-full">
+    <Link href={`/actualites/${actualite.id}`} className="group block h-full">
       <article className="flex flex-col h-full rounded-2xl border border-slate-200/80 bg-white overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
 
         {/* Conteneur Image avec Badge Flottant */}
@@ -75,9 +75,9 @@ export function ActualiteCard({ actualite }: ActualiteCardProps) {
               {actualite.titre}
             </h3>
 
-            {actualite.chapeau && (
+            {actualite.resume && (
               <p className="text-sm text-slate-600 leading-relaxed line-clamp-2 font-normal">
-                {truncate(actualite.chapeau, 110)}
+                {truncate(actualite.resume, 110)}
               </p>
             )}
           </div>

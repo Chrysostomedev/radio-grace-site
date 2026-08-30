@@ -66,7 +66,7 @@ export default function PrieresPage() {
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200/80 hover:text-[#004D20]'
                   }`}
                 >
-                  <span>{cat === 'all' ? 'Toutes les prières' : cat}</span>
+                  <span>{cat === 'all' ? 'Evangile du jour' : cat}</span>
                   <span
                     className={`px-2 py-0.5 rounded-full text-[10px] ${
                       isActive ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-600'
@@ -86,10 +86,7 @@ export default function PrieresPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10">
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#004D20] via-[#003817] to-[#002C13] text-white p-6 sm:p-8 shadow-md border border-[#EAB308]/20 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CA8A04]/20 text-[#EAB308] text-xs font-bold uppercase tracking-wider border border-[#CA8A04]/30">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Moment de Méditation</span>
-            </span>
+            
             <h3 className="text-xl sm:text-2xl font-extrabold text-white">« Demandez et l'on vous donnera »</h3>
             <p className="text-sm text-amber-100/80 max-w-2xl font-normal">
               Prenez un instant pour vous recueillir. Parcourez ces prières rédigées pour vous accompagner dans la foi et l'espérance au quotidien.

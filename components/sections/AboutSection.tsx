@@ -84,12 +84,7 @@ export function AboutSection({ title, subtitle, content, image, stats }: AboutSe
         {/* Texte / Contenu Éditorial (7 cols ou 12 cols si pas d'image) */}
         <div className={`${image ? 'lg:col-span-7 order-1 lg:order-2' : 'lg:col-span-12'}`}>
           
-          {/* Badge Sur-titre */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#007A33]/10 border border-[#007A33]/20 text-[#007A33] text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#CA8A04]" />
-            <span>À Propos de la Station</span>
-          </div>
-
+          
           {/* Titre & Sous-titre */}
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#004D20] tracking-tight leading-tight mb-3">
             {title}

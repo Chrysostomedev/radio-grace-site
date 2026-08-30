@@ -20,7 +20,7 @@ export function Header() {
   const pathname = usePathname();
 
   const newsTickerMessages = [
-    "Radio Grâce-Espoir : La voix de la foi et de l'espérance",
+    "Radio Grâce-Espoir : L'évangile au coeur de l'homme",
     "Retrouvez vos temps de prière et d'adoration tous les jours en direct",
     "Émission spéciale ce soir à 20h : Prière & Délivrance avec Père Attobra",
   ];
@@ -28,7 +28,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 w-full bg-[#FAF9F6]/95 backdrop-blur-md border-b border-[#007A33]/10 shadow-sm">
       
-      {/* 1. TOPBAR — BANDEAU ROUGE JT */}
+      {/* 1. TOPBAR — BANDEAU ROUGE JT
       <div className="bg-red-700 text-white text-xs py-1.5 px-4 overflow-hidden shadow-inner border-b border-red-800">
         <div className="max-w-7xl mx-auto flex items-center gap-3">
           <div className="flex items-center gap-2 bg-black/30 px-2.5 py-0.5 rounded-md shrink-0 border border-white/20">
@@ -52,7 +52,7 @@ export function Header() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* 2. MAIN HEADER */}
       <div className="max-w-7xl mx-auto px-4 py-2.5 sm:py-3 flex items-center justify-between gap-4">
@@ -72,7 +72,7 @@ export function Header() {
               RADIO GRÂCE-ESPOIR
             </span>
             <span className="text-[10px] sm:text-xs font-bold text-[#CA8A04] tracking-wider uppercase">
-              La Voix Divine
+              L'Evangile au coeur de l'Homme
             </span>
           </div>
         </Link>
@@ -147,13 +147,13 @@ export function Header() {
 
         {/* Actions droite */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <button
+          <Link
+            href="/recherche"
             className="p-2 rounded-full hover:bg-slate-100 text-slate-700 hover:text-[#007A33] transition-colors"
             title="Rechercher"
-            aria-label="Rechercher"
           >
             <Search className="w-5 h-5" />
-          </button>
+          </Link>
 
           <button
             className="lg:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"

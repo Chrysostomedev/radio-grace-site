@@ -3,58 +3,88 @@
 
 import Link from 'next/link';
 import { HeroCarousel } from '@/components/sections/HeroCarousel';
+import { PublicitesCarousel } from '@/components/sections/PublicitesCarousel';
 import { QuoteCard } from '@/components/cards/QuoteCard';
 import { EmissionCard } from '@/components/cards/EmissionCard';
-import { ActualiteCard } from '@/components/cards/ActualiteCard';
 import { useEmissions } from '@/hooks/useEmissions';
-import { useActualites } from '@/hooks/useActualites';
+import { ActualitesRecentes } from '@/components/sections/ActualitesRecentes';
 import { EmissionsCircleCarousel } from '@/components/sections/EmissionsCircleCarousel';
 import { PublicationsMarquee } from '@/components/sections/PublicationsMarquee';
-
-
-import { Radio, ArrowRight, HeartHandshake, Sparkles, Volume2 } from 'lucide-react';
+import AppMobileSection from '@/components/sections/AppMobileSection';
+import { ArrowRight, HeartHandshake } from 'lucide-react';
 
 export default function AccueilPage() {
   const emissions = useEmissions();
-  const actualites = useActualites();
 
   return (
     <div className="pb-24 bg-[#FAF9F6] min-h-screen">
+
+      {/* 0. CARROUSEL PUBLICITÉS TOP */}
+      <section className="w-full">
+        <PublicitesCarousel />
+      </section>
 
       {/* 1. HERO CAROUSEL */}
       <section className="pt-4 pb-6 px-4 sm:px-6 w-full">
         <HeroCarousel />
       </section>
 
-      {/* 2. BARRE DIRECT ANTENNE (TICKER) */}
-      {/* <section className="px-4 sm:px-6 max-w-7xl mx-auto mb-16">
-        <div className="bg-[#004D20] text-white rounded-2xl p-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md border border-emerald-900">
-          <div className="flex items-center gap-3">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-            </span>
-            <span className="text-xs font-black uppercase tracking-wider text-amber-300 flex items-center gap-1.5">
-              <Radio className="w-4 h-4" /> En Direct Studio
-            </span>
-            <span className="hidden md:inline text-slate-300 text-xs">|</span>
-            <p className="text-xs sm:text-sm font-medium text-slate-100 truncate max-w-md sm:max-w-xl">
-              Vous écoutez Radio Grâce-Espoir Abidjan • La Voix de l&apos;Espérance
-            </p>
+      <EmissionsCircleCarousel />
+
+
+      {/* 4. ÉMISSIONS À L'ÉCOUTE */}
+      <section className="py-12 px-4 sm:px-6 w-full mb-12">
+        <div className="max-w-7xl mx-auto">
+
+          {/* En-tête de section style Éditorial / Media */}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-slate-200/60 gap-4">
+            <div className="flex items-start gap-3">
+              {/* Trait de repère visuel (Vert institutionnel) */}
+              <span className="w-1.5 h-8 bg-[#004D20] rounded-full shrink-0 mt-0.5" />
+
+              <div>
+               
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-none mt-1">
+                  Émissions à l&apos;écoute
+                </h2>
+              </div>
+            </div>
+
+            <Link
+              href="/emissions"
+              className="inline-flex items-center gap-2 text-xs font-bold text-[#004D20] bg-[#004D20]/5 hover:bg-[#004D20] hover:text-white px-4 py-2 rounded-full transition-all duration-200 group w-fit"
+            >
+              <span>Toute la grille</span>
+              <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform" />
+            </Link>
           </div>
 
-          <Link
-            href="/direct"
-            className="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs transition-all shadow-xs"
-          >
-            <Volume2 className="w-4 h-4" />
-            <span>Écouter le Direct</span>
-          </Link>
+          {/* Grille d'émissions */}
+          {emissions && emissions.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* On passe la limite à 5 cartes */}
+              {emissions.slice(0, 5).map((emission: any) => (
+                <EmissionCard key={emission.id} emission={emission} />
+              ))}
+            </div>
+          ) : (
+            <div className="py-16 px-4 text-center rounded-2xl bg-white border border-slate-100 shadow-sm">
+              <p className="text-sm font-medium text-slate-500">
+                Aucune émission programmée pour le moment.
+              </p>
+            </div>
+          )}
+
         </div>
-      </section> */}
+      </section>
+       {/* SECTION DÉFILANTE (PUBLICATIONS) */}
+      <PublicationsMarquee />
 
 
-      <EmissionsCircleCarousel />
+
+      {/* 5. ACTUALITÉS RECENTES - Composant dynamique */}
+      <ActualitesRecentes />
+
 
       {/* 4. ÉMISSIONS À L'ÉCOUTE */}
       <section className="py-12 px-4 sm:px-6 w-full mb-12">
@@ -86,10 +116,10 @@ export default function AccueilPage() {
           </div>
 
           {/* Grille d'émissions */}
-          {emissions.length > 0 ? (
+          {emissions && emissions.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* On passe la limite à 5 cartes */}
-              {emissions.slice(0, 5).map((emission) => (
+              {emissions.slice(0, 5).map((emission: any) => (
                 <EmissionCard key={emission.id} emission={emission} />
               ))}
             </div>
@@ -103,64 +133,44 @@ export default function AccueilPage() {
 
         </div>
       </section>
+     
+      {/* 7. APPLICATION MOBILE */}
+      <AppMobileSection />
 
-      {/* 5. ACTUALITÉS RECENTES */}
-      <section className="py-12 px-4 sm:px-6 max-w-7xl mx-auto mb-20">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4 border-b border-slate-200/80 pb-5">
-          <div>
-            <span className="text-xs font-black uppercase tracking-wider text-[#CA8A04] block mb-1">
-              Vie de l&apos;Église & Vie Sociale
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Actualités récentes
-            </h2>
-          </div>
-          <Link
-            href="/actualites"
-            className="inline-flex items-center gap-2 text-xs font-extrabold text-[#004D20] hover:text-amber-700 transition-colors group"
-          >
-            <span>Toutes les actualités</span>
-            <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </div>
+    {/* 3. CITATIONS DE L'ÉQUIPE */}
+<section className="px-4 sm:px-6 max-w-7xl mx-auto mb-20 mt-16">
+  {/* Titre de section */}
+  <div className="text-center mb-10 sm:mb-14">
+    <span className="inline-block text-[#CA8A04] text-xs sm:text-sm font-bold tracking-[0.2em] uppercase mb-3">
+      Ils parlent de nous
+    </span>
+    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#0E241C]">
+      La vision de l’équipe
+    </h2>
+  </div>
 
-        {actualites.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {actualites.slice(0, 3).map((actualite) => (
-              <ActualiteCard key={actualite.id} actualite={actualite} />
-            ))}
-          </div>
-        ) : (
-          <div className="bg-white rounded-3xl p-12 text-center border border-dashed border-slate-300 text-slate-500 text-xs">
-            Aucune actualité publiée pour l&apos;instant.
-          </div>
-        )}
-      </section>
-
-      {/* SECTION DÉFILANTE (PUBLICATIONS) */}
-      <PublicationsMarquee />
-
-      {/* 3. CITATION DU DIRECTEUR */}
-      <section className="px-4 sm:px-6 max-w-7xl mx-auto mb-20 mt-16">
-        <QuoteCard
-          quote="La radio est un moyen merveilleux pour partager la Parole de Dieu, accompagner les familles et apporter une lueur d'espoir au cœur des foyers."
-          author="Assalé David"
-          role="Jouranliste"
-          image="/img/actu (5).jpg"
-        />
-        <QuoteCard
-          quote="La radio est un moyen merveilleux pour partager la Parole de Dieu, accompagner les familles et apporter une lueur d'espoir au cœur des foyers."
-          author="Père Attobra"
-          role="Directeur Général • Radio Grâce-Espoir"
-          image="/img/onboard.jpg"
-        />
-        <QuoteCard
-          quote="La radio est un moyen merveilleux pour partager la Parole de Dieu, accompagner les familles et apporter une lueur d'espoir au cœur des foyers."
-          author="Elvire Kadjo"
-          role="Directeur Général • Radio Grâce-Espoir"
-          image="/img/hero1.jpg"
-        />
-      </section>
+  {/* Grille responsive */}
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+    <QuoteCard
+      quote="La radio est un moyen merveilleux pour partager la Parole de Dieu, accompagner les familles et apporter une lueur d'espoir au cœur des foyers."
+      author="Assalé David"
+      role="Journaliste"
+      image="/img/actu (5).jpg"
+    />
+    <QuoteCard
+      quote="La radio est un moyen merveilleux pour partager la Parole de Dieu, accompagner les familles et apporter une lueur d'espoir au cœur des foyers."
+      author="Père Attobra"
+      role="Directeur Général • Radio Grâce-Espoir"
+      image="/img/onboard.jpg"
+    />
+    <QuoteCard
+      quote="La radio est un moyen merveilleux pour partager la Parole de Dieu, accompagner les familles et apporter une lueur d'espoir au cœur des foyers."
+      author="Elvire Kadjo"
+      role="Directrice des programmes • Radio Grâce-Espoir"
+      image="/img/hero1.jpg"
+    />
+  </div>
+</section>
 
       {/* 6. SECTION INTENTIONS DE PRIÈRE & SOUTIEN */}
       <section className="w-full py-6 px-4 sm:px-6">

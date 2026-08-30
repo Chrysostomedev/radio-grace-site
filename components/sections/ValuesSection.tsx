@@ -38,11 +38,7 @@ export function ValuesSection() {
         
         {/* En-tête de section */}
         <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#007A33]/10 border border-[#007A33]/20 text-[#007A33] text-xs font-bold uppercase tracking-wider">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#CA8A04]" />
-            <span>Fondations & Engagements</span>
-          </div>
-          
+         
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#004D20] tracking-tight">
             Nos Valeurs
           </h2>

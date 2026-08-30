@@ -69,7 +69,7 @@ export function EmissionsCircleCarousel() {
           {EMISSIONS.map((em) => (
             <Link
               key={em.id}
-              href={em.href || '/emissions'}
+              href={`/emissions/${em.id}`}
               className="group flex flex-col items-center shrink-0 w-[140px] sm:w-[160px] snap-center"
             >
               {/* Cercle image */}

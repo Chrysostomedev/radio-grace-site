@@ -1,3 +1,5 @@
+'use client';
+
 import { PageHero } from '@/components/sections/PageHero';
 import { useProgrammes } from '@/hooks/useProgrammes';
 import { ProgrammesInteractive } from '@/components/sections/ProgrammesInteractive';

@@ -19,7 +19,7 @@ export function EmissionCard({ emission }: EmissionCardProps) {
           {emission.image ? (
             <Image
               src={emission.image}
-              alt={emission.titre || ''}
+              alt={emission.title || ''}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
@@ -52,7 +52,7 @@ export function EmissionCard({ emission }: EmissionCardProps) {
         <div className="flex flex-col flex-1 p-6 justify-between space-y-4">
           <div className="space-y-2">
             <h3 className="font-extrabold text-lg text-slate-900 group-hover:text-[#004D20] transition-colors line-clamp-2 leading-snug">
-              {emission.titre}
+              {emission.title}
             </h3>
             {emission.description && (
               <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-normal">
@@ -78,10 +78,10 @@ export function EmissionCard({ emission }: EmissionCardProps) {
                 </div>
               ) : <div />}
 
-              {emission.duree && (
+              {emission.duration && (
                 <div className="flex items-center gap-1 text-slate-400 shrink-0 font-mono">
                   <Clock className="w-3.5 h-3.5" />
-                  <span>{emission.duree}</span>
+                  <span>{emission.duration}</span>
                 </div>
               )}
             </div>

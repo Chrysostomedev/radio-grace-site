@@ -6,14 +6,14 @@ import { SocialLink } from '@/types';
 
 export const BRAND = {
   name: 'Radio Grâce-Espoir',
-  tagline: 'La voix de l\'Espoir',
-  description: 'Webradio chrétienne d\'évangélisation et d\'enseignement spirituel',
+  tagline: 'L\'Evangile au coeur de l\'Homme',
+  description: 'Webradio catholique d\'évangélisation et d\'enseignement spirituel',
   foundedDate: '2020-03-25',
   colors: {
     primary: 'forest-900', // vert forêt
-    primaryLight: 'forest-700',
-    accent: 'sun-500', // or soleil
-    accentLight: 'sun-400',
+    primaryLight: 'forest-600',
+    accent: 'sun-400', // or soleil
+    accentLight: 'sun-300',
     secondary: 'terracotta-500', // terracotta
     background: 'ivory-100', // ivoire
     text: 'slate-900',
@@ -37,24 +37,16 @@ export const SOCIAL_LINKS: SocialLink[] = [
     url: 'https://instagram.com/radiogracespoir',
     icon: 'Instagram',
   },
-  {
-    platform: 'vk',
-    url: 'https://vk.com/radiogracespoir',
-    icon: 'Vk',
-  },
-  {
-    platform: 'pinterest',
-    url: 'https://pinterest.com/radiogracespoir',
-    icon: 'Pinterest',
-  },
+ 
+ 
 ];
 
 export const CONTACT_INFO = {
-  email: 'contact@radiogracespoir.fr',
-  phone: '+33 1 XX XX XX XX',
-  address: 'Radio Grâce-Espoir\nCongégation de Grâce-Espoir',
-  hours: 'Lun - Ven : 09h00 - 18h00\nSam - Dim : Fermé',
-};
+  phone: "+225 07 79 37 98 38",
+  email: "contact@radio-grace-espoir.com",
+  address: "Abidjan, Côte d'Ivoire",
+  hours: "Lun - Ven : 08h - 18h",
+} as const;
 
 export const NAVIGATION = [
   {
@@ -86,11 +78,7 @@ export const NAVIGATION = [
     id: 'prayers',
     label: 'Prières',
     children: [
-       {
-        id: 'priere',
-        label: 'Toutes les prieres',
-        href: '/prieres',
-      },
+       
       {
         id: 'gospel',
         label: 'Évangile du jour',
@@ -121,7 +109,7 @@ export const NAVIGATION = [
 ];
 
 export const FLASH_INFO = [
-  '🎙️ Bienvenue sur Radio Grâce-Espoir — La voix de l\'Espoir',
-  '✨ Rejoignez-nous pour notre émission spéciale dimanche à 18h',
-  '🙏 Écoutez les prières du Père Attobra tous les jours à 7h',
+  ' Bienvenue sur Radio Grâce-Espoir — La voix de l\'Espoir',
+  ' Rejoignez-nous pour notre émission spéciale dimanche à 18h',
+  ' Écoutez les prières du Père Attobra tous les jours à 7h',
 ];

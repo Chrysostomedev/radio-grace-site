@@ -58,13 +58,13 @@ export default function SplashPage() {
         />
       </div>
 
-      {/* Petit point d’écoute / signal */}
+      {/* Petit point d’écoute / signal
       <div className="absolute bottom-16 flex items-center gap-2">
         <span className="signal-dot" />
         <p className="text-sm font-semibold tracking-widest text-[#2E8B2E]/80 uppercase">
           En direct
         </p>
-      </div>
+      </div> */}
 
       <style jsx>{`
         @keyframes logoIn {
