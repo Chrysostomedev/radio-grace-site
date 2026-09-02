@@ -4,7 +4,6 @@
  * Composant — Carte Actualité Premium UI
  */
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { Actualite } from '@/types/actualite.types';
 import { formatDateFR, truncate } from '@/lib/utils';
@@ -25,15 +24,15 @@ export function ActualiteCard({ actualite }: ActualiteCardProps) {
 
         {/* Conteneur Image avec Badge Flottant */}
         <div className="relative w-full aspect-[16/10] bg-[#002C13]/5 overflow-hidden">
-          {actualite.image ? (
-            <Image
-              src={actualite.image}
-              alt={actualite.titre}
-              fill
-              className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          ) : (
+         // Supprimer : import Image from 'next/image';
+
+{actualite.image ? (
+  <img
+    src={actualite.image}
+    alt={actualite.titre}
+    className="absolute inset-0 h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+  />
+) : (
             <div className="w-full h-full bg-gradient-to-br from-[#004D20] to-[#002C13] flex items-center justify-center text-white/20">
               <Newspaper className="w-16 h-16 stroke-[1.5]" />
             </div>

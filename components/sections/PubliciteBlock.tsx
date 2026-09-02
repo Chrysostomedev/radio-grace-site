@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePublicites } from '@/hooks/usePublicites';
+import { usePublicitesQuery } from '@/hooks/usePublicites';
 
 export function PubliciteBlock({ position = 'sidebar' }: { position?: string }) {
-  const { data: publicites, isLoading } = usePublicites(position);
+  const { data: publicites = [], isLoading } = usePublicitesQuery();
 
   if (isLoading || !publicites || publicites.length === 0) {
     return null; // On ne montre rien si pas de pubs

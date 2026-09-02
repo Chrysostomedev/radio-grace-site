@@ -1,36 +1,42 @@
-'use client';
+// app/(public)/programmes/page.tsx
+"use client";
 
-import { PageHero } from '@/components/sections/PageHero';
-import { useProgrammes } from '@/hooks/useProgrammes';
-import { ProgrammesInteractive } from '@/components/sections/ProgrammesInteractive';
+import { GrilleProgammesHero } from "@/components/sections/GrilleProgammesHero";
+import { Metadata } from "next";
 
 export default function ProgrammesPage() {
-  const { data, isLoading } = useProgrammes();
-  const programmes = data?.data || [];
-
   return (
     <div className="pb-24 bg-[#FAF9F6] min-h-screen">
-      {/* Hero Header */}
-      <PageHero
-        title="Grille des Programmes"
-        subtitle="Retrouvez l'ensemble de nos rendez-vous spirituels, culturels et d'actualité."
-        image="/img/hero1.jpg"
-        breadcrumb={[
-          { label: 'Accueil', href: '/' },
-          { label: 'Programmes' },
-        ]}
-      />
+      <GrilleProgammesHero />
 
-      {/* Main Section */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto">
-          {isLoading ? (
-            <div className="flex justify-center items-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#004D20]"></div>
-            </div>
-          ) : (
-            <ProgrammesInteractive initialEmissions={programmes} />
-          )}
+      {/* Section info supplémentaire */}
+      <section className="py-16 px-4 sm:px-6 w-full max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-slate-900">
+              Votre grille complète
+            </h3>
+            <p className="text-slate-600 leading-relaxed">
+              Radio Grâce-Espoir propose une programmation riche et variée,
+              adaptée à tous les moments de la journée. Découvrez nos émissions
+              spirituelles, nos magazines et nos directs.
+            </p>
+            <p className="text-slate-600 leading-relaxed">
+              Chaque programme est conçu pour vous accompagner dans votre
+              quotidien, du matin au soir, du lundi au dimanche.
+            </p>
+          </div>
+{/* 
+          <div className="bg-[#004D20]/10 border-l-4 border-[#004D20] p-6 rounded-r-lg space-y-3">
+            <h4 className="font-bold text-slate-900 text-lg"> Conseil</h4>
+            <p className="text-sm text-slate-700">
+              Abonnez-vous à nos alertes pour ne manquer aucune émission spéciale
+              ou en direct!
+            </p>
+            <button className="mt-4 inline-flex items-center gap-2 bg-[#004D20] hover:bg-[#003817] text-white font-bold text-sm px-4 py-2 rounded-lg transition-all duration-200">
+              <span>S'abonner aux notifications</span>
+            </button>
+          </div> */}
         </div>
       </section>
     </div>

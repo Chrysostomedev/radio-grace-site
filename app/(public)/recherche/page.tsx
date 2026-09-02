@@ -5,7 +5,7 @@ import { PageHero } from '@/components/sections/PageHero';
 import { SearchInput } from '@/components/form/SearchInput';
 import { useEmissions } from '@/hooks/useEmissions';
 import { useActualites } from '@/hooks/useActualites';
-import { useProgrammes } from '@/hooks/useProgrammes';
+import { useProgrammesQuery } from '@/hooks/useProgrammes';
 import { EmissionCard } from '@/components/cards/EmissionCard';
 import { ActualiteCard } from '@/components/cards/ActualiteCard';
 import { Search, AlertCircle } from 'lucide-react';
@@ -16,10 +16,10 @@ export default function RecherchePage() {
   // Fetch data
   const emissions = useEmissions();
   const { data: actualitesData } = useActualites(1, 100);
-  const { data: programmesData, isLoading: programmesLoading } = useProgrammes();
+  const { programmes: programmesData } = useProgrammesQuery();
 
   const actualites = actualitesData?.data || [];
-  const programmes = programmesData?.data || [];
+  const programmes = programmesData || [];
 
   // Filtrer les résultats
   const results = useMemo(() => {

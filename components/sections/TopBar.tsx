@@ -5,9 +5,10 @@
  */
 
 import { useState, useEffect, SVGProps } from 'react';
-import { SOCIAL_LINKS, FLASH_INFO } from '@/lib/constants';
+import { SOCIAL_LINKS } from '@/lib/constants';
+import { FlashsSection } from './FlashsSection';
 import { formatDateFR } from '@/lib/utils';
-import { Calendar, Zap } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 /* ─────────────────────────────────────────────
    Vrais logos SVG (réseaux sociaux)
@@ -83,23 +84,11 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export function TopBar() {
   const [currentDate, setCurrentDate] = useState<string>('');
-  const [currentFlashIndex, setCurrentFlashIndex] = useState(0);
-  const [fadeState, setFadeState] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
     setCurrentDate(formatDateFR(new Date().toISOString()));
-
-    const interval = setInterval(() => {
-      setFadeState(false);
-      setTimeout(() => {
-        setCurrentFlashIndex((prev) => (prev + 1) % FLASH_INFO.length);
-        setFadeState(true);
-      }, 300);
-    }, 5000);
-
-    return () => clearInterval(interval);
   }, []);
 
   if (!isMounted) {
@@ -110,41 +99,21 @@ export function TopBar() {
 
   return (
     <div className="bg-[#004D20] text-slate-100 border-b border-[#CA8A04]/40 text-xs py-2 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-        
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+
         {/* 1. Date (À gauche) */}
         <div className="flex items-center gap-2 text-slate-200 shrink-0">
           <Calendar className="w-3.5 h-3.5 text-[#CA8A04]" />
-          <span className="font-semibold capitalize tracking-tight text-[11px] sm:text-xs">
+          <span className="font-semibold capitalize tracking-tight text-[11px] sm:text-xs hidden sm:inline">
             {currentDate}
           </span>
         </div>
 
-        {/* 2. Flash Info (Au centre) */}
-        {FLASH_INFO && FLASH_INFO.length > 0 && (
-          <div className="hidden md:flex items-center justify-center flex-1 max-w-xl mx-4 overflow-hidden">
-            <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full border border-white/5 w-full justify-center">
-              <span className="flex items-center gap-1 text-[#CA8A04] font-black uppercase text-[10px] tracking-wider shrink-0">
-                <Zap className="w-3 h-3 fill-current animate-pulse" />
-                <span>Flash</span>
-              </span>
-              <span className="text-white/20 text-[10px] shrink-0">•</span>
-              <p
-                className={`text-slate-200 text-[11px] truncate font-medium transition-opacity duration-300 ${
-                  fadeState ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                {FLASH_INFO[currentFlashIndex]}
-              </p>
-            </div>
-          </div>
-        )}
+        {/* 2. Flash info — bandeau rotatif compact, données réelles de l'API */}
+        <FlashsSection variant="compact" />
 
         {/* 3. Réseaux Sociaux (À droite) — vrais SVG */}
         <div className="flex items-center justify-end gap-2 shrink-0">
-          <span className="hidden lg:inline text-[10px] text-slate-300 uppercase tracking-wider font-bold mr-1">
-            Nous suivre :
-          </span>
           {SOCIAL_LINKS.map((link) => {
             const IconComponent = ICON_MAP[link.platform];
             if (!IconComponent) return null;

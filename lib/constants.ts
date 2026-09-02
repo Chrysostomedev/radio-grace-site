@@ -59,11 +59,11 @@ export const NAVIGATION = [
     label: 'Qui sommes-nous ?',
     href: '/qui-sommes-nous',
   },
-  {
-    id: 'shows',
-    label: 'Émissions',
-    href: '/emissions',
-  },
+  // {
+  //   id: 'shows',
+  //   label: 'Émissions',
+  //   href: '/emissions',
+  // },
   {
     id: 'programs',
     label: 'Programmes',
@@ -84,15 +84,16 @@ export const NAVIGATION = [
         label: 'Évangile du jour',
         href: '/evangile-du-jour',
       },
+     
       {
+        id: 'priere',
+        label: 'Déposer une intention',
+        href: '/intention',
+      },
+       {
         id: 'saints',
         label: 'Les saints du jour',
         href: '/saints-du-jour',
-      },
-      {
-        id: 'Chapelet',
-        label: 'Déposer une intention',
-        href: '/chapelet',
       },
       {
         id: 'novenas',

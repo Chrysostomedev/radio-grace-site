@@ -1,9 +1,30 @@
-import { get } from '../core/axios';
-import { Publicite } from '../types/publicite.types';
+import { apiClient } from '@/core/axios';
+
+export interface Publicite {
+  id: number;
+  titre: string;
+  image?: string | null;
+  video_url?: string | null;
+  lien?: string | null;
+  position: string;
+  date_debut: string;
+  date_fin: string;
+  is_active: boolean;
+  clics: number;
+}
+
+interface PaginatedResponse<T> {
+  data: T[];
+  links: any;
+  meta: any;
+}
 
 export const publicitesService = {
-  getPublicites: async (position?: string): Promise<Publicite[]> => {
-    const response = await get<{ success: boolean; data: Publicite[] }>(`/publicites`, { position });
-    return response.data;
+  /**
+   * Récupère toutes les publicités actives pour le site
+   */
+  async getAll(): Promise<Publicite[]> {
+    const response = await apiClient.get<PaginatedResponse<Publicite>>('/publicites');
+    return response.data.data;
   },
 };

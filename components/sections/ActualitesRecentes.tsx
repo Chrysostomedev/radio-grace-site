@@ -27,9 +27,7 @@ export function ActualitesRecentes() {
     <section className="py-12 px-4 sm:px-6 max-w-7xl mx-auto mb-20">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4 border-b border-slate-200/80 pb-5">
         <div>
-          <span className="text-xs font-black uppercase tracking-wider text-[#CA8A04] block mb-1">
-            Vie de l'Église & Vie Sociale
-          </span>
+          
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
             Actualités récentes
           </h2>

@@ -26,40 +26,35 @@ export const metadata: Metadata = {
   robots: "index, follow",
 };
 
-export default function RootLayout({
+export default function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-ivory-50">
-        <CookieConsent />
-        <QueryProvider>
-          <PlayerProvider>
-            {/* Top bar (date + flash info + socials) */}
-            <TopBar />
+    <>
+      <CookieConsent />
+      <QueryProvider>
+        <PlayerProvider>
+          {/* Top bar (date + flash info + socials) */}
+          <TopBar />
 
-            {/* Header principal */}
-            <Header />
+          {/* Header principal */}
+          <Header />
 
-            {/* Contenu des pages */}
-            <main className="flex-1">
-              {children}
-            </main>
+          {/* Contenu des pages */}
+          <main className="flex-1">
+            {children}
+          </main>
 
-            {/* Footer */}
-            <Footer />
+          {/* Footer */}
+          <Footer />
 
-            {/* Player audio persistant */}
-            <PlayerBar />
-          </PlayerProvider>
-        </QueryProvider>
-      </body>
-    </html>
+          {/* Player audio persistant */}
+          <PlayerBar />
+        </PlayerProvider>
+      </QueryProvider>
+    </>
   );
 }
 

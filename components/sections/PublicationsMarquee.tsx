@@ -32,7 +32,7 @@ export function PublicationsMarquee() {
             Flash Info
           </span>
           <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#FBF6EA]/50 mt-1 hidden sm:block">
-            Grâce-Espoir FM
+            Grâce-Espoir
           </span>
         </div>
       </div>
@@ -46,7 +46,7 @@ export function PublicationsMarquee() {
 
         <div className="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap items-center">
           {marqueeItems.map((pub, idx) => (
-            <div key={`pub.id−{pub.id}-pub.id−{idx}`} className="flex items-center">
+            <div key={`${pub.id}-${idx}`} className="flex items-center">
               <Link
                 href={`/actualites/${pub.id}`}
                 className="group flex items-center gap-2.5 px-7 py-1 text-sm sm:text-[15px] font-bold tracking-wide hover:text-[#F0A93E] transition-all duration-300"

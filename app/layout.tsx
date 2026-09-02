@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Radio Grâce-Espoir — La voix de l'Espoir",
+  title: "Radio Grâce-Espoir — L'Evangile au coeur de l'Homme",
   description:
     "Webradio chrétienne d'évangélisation et d'enseignement spirituel. Écoutez nos émissions en direct.",
   keywords: "radio, chrétienne, spirituel, évangélisation, prières, enseignement",

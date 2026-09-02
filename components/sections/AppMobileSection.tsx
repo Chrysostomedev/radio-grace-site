@@ -411,7 +411,7 @@ export default function AppMobileSection() {
             </span>
 
             <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#FBF6EA] sm:text-4xl">
-              La Grâce-Espoir dans votre poche,{" "}
+              Radio Grâce- {" "}
               <span className="text-[#F0A93E]">
                 où que vous soyez
               </span>

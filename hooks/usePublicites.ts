@@ -1,9 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { publicitesService } from '../services/publicites.service';
+'use client';
 
-export const usePublicites = (position?: string) => {
-  return useQuery({
-    queryKey: ['publicites', position],
-    queryFn: () => publicitesService.getPublicites(position),
+import { useQuery } from '@tanstack/react-query';
+import { publicitesService, Publicite } from '@/services/publicites.service';
+
+export function usePublicitesQuery() {
+  return useQuery<Publicite[]>({
+    queryKey: ['publicites'],
+    queryFn: () => publicitesService.getAll(),
+    staleTime: 1000 * 60 * 5, // 5 min
   });
-};
+}

@@ -3,15 +3,14 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, Headphones, Radio } from 'lucide-react';
-
-import { usePodcasts } from '@/hooks/usePodcasts';
+import { ChevronLeft, ChevronRight, Headphones } from 'lucide-react';
+import { useProgrammesQuery } from '@/hooks/useProgrammes';
 
 export function EmissionsCircleCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
-  const { data: podcastsResponse } = usePodcasts(1, 10);
+  const { programmes } = useProgrammesQuery(1, 10);
   
-  const EMISSIONS = podcastsResponse?.data || [];
+  const EMISSIONS = programmes || [];
 
   const scroll = (dir: 'left' | 'right') => {
     const el = trackRef.current;
@@ -30,10 +29,6 @@ export function EmissionsCircleCarousel() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#004D20]/10 text-[#004D20] text-[11px] font-black uppercase tracking-wider mb-3">
-              <Radio className="w-3.5 h-3.5" />
-              Grille des programmes
-            </div>
             <h2 className="text-3xl sm:text-4xl font-black text-[#001A0B] tracking-tight">
               Nos émissions
             </h2>
@@ -66,10 +61,10 @@ export function EmissionsCircleCarousel() {
           className="flex gap-8 sm:gap-10 overflow-x-auto scrollbar-hide pb-6 snap-x snap-mandatory"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {EMISSIONS.map((em) => (
+          {EMISSIONS.map((programme) => (
             <Link
-              key={em.id}
-              href={`/emissions/${em.id}`}
+              key={programme.id}
+              href={`/programmes/${programme.id}`}
               className="group flex flex-col items-center shrink-0 w-[140px] sm:w-[160px] snap-center"
             >
               {/* Cercle image */}
@@ -77,39 +72,39 @@ export function EmissionsCircleCarousel() {
                 {/* Anneau or animé au hover */}
                 <div className="absolute inset-0 rounded-full border-2 border-[#CA8A04]/30 group-hover:border-[#CA8A04] group-hover:scale-105 transition-all duration-500" />
                 <div className="absolute inset-1.5 rounded-full overflow-hidden shadow-xl shadow-[#004D20]/15 group-hover:shadow-[#CA8A04]/25 transition-shadow duration-500">
-                    <Image
-                      src={em.image ? `http://127.0.0.1:8000/storage/${em.image}` : '/img/hero1.jpg'}
-                      alt={em.titre}
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      sizes="160px"
-                    />
-                    {/* Overlay hover */}
-                    <div className="absolute inset-0 bg-[#001A0B]/0 group-hover:bg-[#001A0B]/35 transition-colors duration-300 flex items-center justify-center">
-                      <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-12 h-12 rounded-full bg-[#CA8A04] text-[#001A0B] flex items-center justify-center shadow-lg scale-75 group-hover:scale-100">
-                        <Headphones className="w-5 h-5" />
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Badge horaire */}
-                  {em.duree && (
-                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full bg-[#004D20] text-amber-300 text-[10px] font-black tracking-wide shadow-md whitespace-nowrap">
-                      {em.duree}
+                  <Image
+                    src={programme.image ? `http://127.0.0.1:8000/storage/${programme.image}` : '/img/hero1.jpg'}
+                    alt={programme.titre}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    sizes="160px"
+                  />
+                  {/* Overlay hover */}
+                  <div className="absolute inset-0 bg-[#001A0B]/0 group-hover:bg-[#001A0B]/35 transition-colors duration-300 flex items-center justify-center">
+                    <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-12 h-12 rounded-full bg-[#CA8A04] text-[#001A0B] flex items-center justify-center shadow-lg scale-75 group-hover:scale-100">
+                      <Headphones className="w-5 h-5" />
                     </span>
-                  )}
+                  </div>
                 </div>
 
-                {/* Texte */}
-                <div className="mt-5 text-center px-1">
-                  <h3 className="text-sm font-black text-[#001A0B] group-hover:text-[#CA8A04] transition-colors leading-tight line-clamp-1">
-                    {em.titre}
-                  </h3>
-                  {em.description && (
-                    <p className="mt-1 text-[11px] text-[#163A2C]/50 font-medium line-clamp-1">
-                      {em.description}
-                    </p>
-                  )}
+                {/* Badge catégorie */}
+                {programme.categorie && (
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full bg-[#CA8A04] text-white text-[9px] font-black tracking-wide shadow-md whitespace-nowrap">
+                    {programme.categorie}
+                  </span>
+                )}
+              </div>
+
+              {/* Texte */}
+              <div className="mt-5 text-center px-1">
+                <h3 className="text-sm font-black text-[#001A0B] group-hover:text-[#CA8A04] transition-colors leading-tight line-clamp-1">
+                  {programme.titre}
+                </h3>
+                {programme.description && (
+                  <p className="mt-1 text-[11px] text-[#163A2C]/50 font-medium line-clamp-1">
+                    {programme.description}
+                  </p>
+                )}
               </div>
             </Link>
           ))}
@@ -118,7 +113,7 @@ export function EmissionsCircleCarousel() {
         {/* Lien voir tout */}
         <div className="mt-8 text-center">
           <Link
-            href="/emissions"
+            href="/programmes"
             className="inline-flex items-center gap-2 text-sm font-bold text-[#004D20] hover:text-[#CA8A04] transition-colors"
           >
             Voir toutes les émissions

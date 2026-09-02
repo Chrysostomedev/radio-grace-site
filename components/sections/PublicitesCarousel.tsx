@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePublicites } from '@/hooks/usePublicites';
+import { usePublicitesQuery } from '@/hooks/usePublicites';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 /**
@@ -11,24 +11,25 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
  * Affiche les publicités avec position 'top' en boucle animée
  */
 export function PublicitesCarousel() {
-  const { data: publicites, isLoading } = usePublicites('top');
+  const { data: publicites = [], isLoading } = usePublicitesQuery();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
 
-  if (isLoading || !publicites || publicites.length === 0) {
-    return null;
-  }
-
   // Défilement automatique
   useEffect(() => {
-    if (!autoplay) return;
+    if (!autoplay || !publicites || publicites.length === 0) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % publicites.length);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [autoplay, publicites.length]);
+  }, [autoplay, publicites.length, publicites]);
+
+  // Early return après tous les hooks
+  if (isLoading || !publicites || publicites.length === 0) {
+    return null;
+  }
 
   const currentPub = publicites[currentIndex];
 
