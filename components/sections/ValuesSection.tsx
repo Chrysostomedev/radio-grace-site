@@ -58,11 +58,11 @@ export function ValuesSection() {
                 className={`group relative bg-white/80 backdrop-blur-md rounded-2xl p-7 sm:p-8 border border-slate-200/80 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col items-start ${item.accentColor}`}
               >
                 {/* Icône de la Valeur */}
-                <div
+                {/* <div
                   className={`w-14 h-14 rounded-2xl flex items-center justify-center border shadow-xs mb-6 transition-transform duration-300 group-hover:scale-110 ${item.iconBg}`}
                 >
                   <Icon className="w-7 h-7 stroke-[2.2]" />
-                </div>
+                </div> */}
 
                 {/* Titre */}
                 <h3 className="text-xl font-extrabold text-[#004D20] mb-3 tracking-tight">

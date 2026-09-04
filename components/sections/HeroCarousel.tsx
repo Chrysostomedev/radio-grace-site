@@ -8,6 +8,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useHeroSlidesQuery } from '@/hooks/useAccueil';
+import { getAbsoluteImageUrl } from '@/lib/imageUrl';
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -22,45 +23,45 @@ import {
 const AUTOPLAY_INTERVAL = 6000;
 
 // Visualisations de secours ultra-qualitatives (4 à 5 visuels immersive)
-const FALLBACK_SLIDES = [
+// const FALLBACK_SLIDES = [
 
-  {
-    id: '2',
-    image: '/img/hero1.jpg',
-    badge: 'Louange & Adoration',
-    title: 'Des Moments de Grâce Inoubliables',
-    subtitle: 'Élevez votre esprit avec nos programmes musicaux sélectionnés pour fortifier votre foi.',
-    cta: { label: 'Découvrir nos émissions', href: '/emissions' }
-  },
-  {
-    id: '3',
-    image: '/img/actu (4).jpg',
-    badge: 'Communauté',
-    title: 'Ensemble Dans la Prière',
-    subtitle: 'Déposez vos intentions et rejoignez une grande famille unie par l’espérance.',
-    cta: { label: 'Confier une intention', href: '/prieres' }
-  },
-  {
-    id: '4',
-    image: '/img/her.jpg',
-    badge: 'Vie de l\'Église',
-    title: 'Actualités & Enseignements',
-    subtitle: 'Restez informé de la vie de notre diocèse et des réflexions de nos pasteurs.',
-    cta: { label: 'Lire les actualités', href: '/actualites' }
-  },
-  {
-    id: '5',
-    image: '/img/pere.jpg',
-    badge: 'Solidarité',
-    title: 'Soutenez la Mission Radiophonique',
-    subtitle: 'Votre générosité permet à la parole d’espérance d’atteindre des milliers de foyers.',
-    cta: { label: 'Faire un don', href: '/dons' }
-  }
-];
+//   {
+//     id: '2',
+//     image: '/img/hero1.jpg',
+//     badge: 'Louange & Adoration',
+//     title: 'Des Moments de Grâce Inoubliables',
+//     subtitle: 'Élevez votre esprit avec nos programmes musicaux sélectionnés pour fortifier votre foi.',
+//     cta: { label: 'Découvrir nos émissions', href: '/emissions' }
+//   },
+//   {
+//     id: '3',
+//     image: '/img/actu (4).jpg',
+//     badge: 'Communauté',
+//     title: 'Ensemble Dans la Prière',
+//     subtitle: 'Déposez vos intentions et rejoignez une grande famille unie par l’espérance.',
+//     cta: { label: 'Confier une intention', href: '/prieres' }
+//   },
+//   {
+//     id: '4',
+//     image: '/img/her.jpg',
+//     badge: 'Vie de l\'Église',
+//     title: 'Actualités & Enseignements',
+//     subtitle: 'Restez informé de la vie de notre diocèse et des réflexions de nos pasteurs.',
+//     cta: { label: 'Lire les actualités', href: '/actualites' }
+//   },
+//   {
+//     id: '5',
+//     image: '/img/pere.jpg',
+//     badge: 'Solidarité',
+//     title: 'Soutenez la Mission Radiophonique',
+//     subtitle: 'Votre générosité permet à la parole d’espérance d’atteindre des milliers de foyers.',
+//     cta: { label: 'Faire un don', href: '/dons' }
+//   }
+// ];
 
 export function HeroCarousel() {
   const { data: customSlides, isLoading } = useHeroSlidesQuery();
-  const slides = (customSlides && customSlides.length > 0) ? customSlides : FALLBACK_SLIDES;
+  const slides = (customSlides && customSlides.length > 0) ? customSlides : [];
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -102,7 +103,7 @@ export function HeroCarousel() {
           >
             {slide.image && (
               <Image
-                src={slide.image}
+                src={getAbsoluteImageUrl(slide.image)}
                 alt={slide.title}
                 fill
                 priority={index === 0}

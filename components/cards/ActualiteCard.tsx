@@ -7,6 +7,7 @@
 import Link from 'next/link';
 import { Actualite } from '@/types/actualite.types';
 import { formatDateFR, truncate } from '@/lib/utils';
+import { getAbsoluteImageUrl } from '@/lib/imageUrl';
 import { Calendar, User, ArrowUpRight, Zap, Newspaper, Clock } from 'lucide-react';
 
 export interface ActualiteCardProps {
@@ -24,11 +25,10 @@ export function ActualiteCard({ actualite }: ActualiteCardProps) {
 
         {/* Conteneur Image avec Badge Flottant */}
         <div className="relative w-full aspect-[16/10] bg-[#002C13]/5 overflow-hidden">
-         // Supprimer : import Image from 'next/image';
 
 {actualite.image ? (
   <img
-    src={actualite.image}
+    src={getAbsoluteImageUrl(actualite.image)}
     alt={actualite.titre}
     className="absolute inset-0 h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
   />

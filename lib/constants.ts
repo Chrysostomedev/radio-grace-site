@@ -42,7 +42,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 export const CONTACT_INFO = {
-  phone: "+225 07 79 37 98 38",
+  phone: "+225 05 05 14 52 15 ",
   email: "contact@radio-grace-espoir.com",
   address: "Abidjan, Côte d'Ivoire",
   hours: "Lun - Ven : 08h - 18h",

@@ -1,21 +1,23 @@
 // app/(public)/programmes/[id]/page.tsx
 "use client";
 
+import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { programmeService } from "@/services/api";
-import Image from "next/image";
 import Link from "next/link";
 import { Play, ChevronLeft, Share2, Play as PlayIcon, TrendingUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { getAbsoluteImageUrl } from "@/lib/imageUrl";
 
 interface ProgrammeDetailPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default function ProgrammeDetailPage({ params }: ProgrammeDetailPageProps) {
-  const programmeId = parseInt(params.id);
+  const { id } = use(params);
+  const programmeId = parseInt(id);
   const { data: programme, isLoading, error } = useQuery({
     queryKey: ["programme", programmeId],
     queryFn: () => programmeService.getById(programmeId),
@@ -91,10 +93,9 @@ export default function ProgrammeDetailPage({ params }: ProgrammeDetailPageProps
               </div>
             ) : programme.image ? (
               <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-xl">
-                <Image
-                  src={programme.image}
+                <img
+                  src={getAbsoluteImageUrl(programme.image)}
                   alt={programme.titre}
-                  fill
                   className="object-cover"
                 />
               </div>
@@ -117,10 +118,9 @@ export default function ProgrammeDetailPage({ params }: ProgrammeDetailPageProps
                 <div className="flex items-center gap-3 pt-4 border-t border-white/20">
                   {programme.animateur.photo && (
                     <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                      <Image
-                        src={programme.animateur.photo}
+                      <img
+                        src={getAbsoluteImageUrl(programme.animateur.photo)}
                         alt={programme.animateur.nom_scene}
-                        fill
                         className="object-cover"
                       />
                     </div>
@@ -245,10 +245,9 @@ export default function ProgrammeDetailPage({ params }: ProgrammeDetailPageProps
                 <div className="text-center space-y-3">
                   {programme.animateur.photo && (
                     <div className="relative w-24 h-24 rounded-full overflow-hidden mx-auto">
-                      <Image
-                        src={programme.animateur.photo}
-                        alt={programme.animateur.nom_scene}
-                        fill
+                      <img
+                        src={getAbsoluteImageUrl(programme.animateur.photo)}
+                        alt={programme.animateur.nom_scene} 
                         className="object-cover"
                       />
                     </div>

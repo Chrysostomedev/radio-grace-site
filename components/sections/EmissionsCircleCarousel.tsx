@@ -1,10 +1,10 @@
 'use client';
 
 import { useRef } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, Headphones } from 'lucide-react';
 import { useProgrammesQuery } from '@/hooks/useProgrammes';
+import { getAbsoluteImageUrl } from '@/lib/imageUrl';
 
 export function EmissionsCircleCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -72,10 +72,9 @@ export function EmissionsCircleCarousel() {
                 {/* Anneau or animé au hover */}
                 <div className="absolute inset-0 rounded-full border-2 border-[#CA8A04]/30 group-hover:border-[#CA8A04] group-hover:scale-105 transition-all duration-500" />
                 <div className="absolute inset-1.5 rounded-full overflow-hidden shadow-xl shadow-[#004D20]/15 group-hover:shadow-[#CA8A04]/25 transition-shadow duration-500">
-                  <Image
-                    src={programme.image ? `http://127.0.0.1:8000/storage/${programme.image}` : '/img/hero1.jpg'}
+                  <img
+                    src={getAbsoluteImageUrl(programme.image)}
                     alt={programme.titre}
-                    fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                     sizes="160px"
                   />

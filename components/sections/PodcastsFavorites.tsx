@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Music, Heart, Play, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { getAbsoluteImageUrl } from "@/lib/imageUrl";
 
 interface Podcast {
   id: number;
@@ -65,7 +66,7 @@ export function PodcastsFavorites() {
             <div>
              
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mt-1">
-                Nos Podcasts Favorites
+                Nos Podcasts Favoris
               </h2>
             </div>
           </div>
@@ -110,7 +111,7 @@ export function PodcastsFavorites() {
                 <div className="relative h-48 w-full bg-gradient-to-br from-[#004D20] to-[#003817] overflow-hidden">
                   {podcast.image ? (
                     <img
-                      src={podcast.image}
+                      src={getAbsoluteImageUrl(podcast.image)}
                       alt={podcast.titre}
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />

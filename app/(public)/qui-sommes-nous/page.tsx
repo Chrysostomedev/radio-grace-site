@@ -25,7 +25,7 @@ export default function AboutPage() {
       <AboutSection
         title="Notre Histoire"
         subtitle="Fondée sur l'Espoir et la Foi"
-        content={`Radio Grâce-Espoir est une webradio créée le 25 mars 2020 par la Congrégation Grâce-Espoir. Notre mission est d'être la voix de l'Espoir à travers la diffusion quotidienne de contenu spirituel, d'enseignements bibliques et de prières.\n\nDepuis sa création, Radio Grâce-Espoir a su toucher des milliers d'âmes à travers le monde francophone, offrant un espace de réconfort, d'apprentissage et d'inspiration spirituelle.\n\nNotre engagement est de rester fidèles à nos valeurs fondamentales : l'amour du prochain, le partage de la Parole de Dieu, et l'action caritative au service de la communauté.`}
+        content={`Radio Grâce-Espoir est une webradio créée le 25 mars 2020 par l'Association Grâce-Espoir. Notre mission est d'être la voix de l'Espoir à travers la diffusion quotidienne de contenus spirituels, d'enseignements bibliques et de prières.\n\nDepuis sa création, Radio Grâce-Espoir a su toucher des milliers d'âmes à travers le monde francophone, offrant un espace de réconfort, d'apprentissage et d'inspiration spirituelle.\n\nNotre engagement est de rester fidèles à nos valeurs fondamentales : l'amour du prochain, le partage de la Parole de Dieu, et l'action caritative au service de la communauté.`}
         image="/img/emis2.jpg"
       />
 
@@ -34,7 +34,7 @@ export default function AboutPage() {
         <QuoteCard
           quote="Nous croyons que chaque personne mérite d'entendre la Parole de Dieu et de recevoir l'amour infini du Seigneur. C'est pourquoi Radio Grâce-Espoir existe — pour être cette voix d'espoir dans les moments de doute."
           author="Père Attobra"
-          role="Directeur Général, Congrégation Grâce-Espoir"
+          role="Directeur Général de Radio Grâce-Espoir"
           image="/img/emis2.jpg"
         />
       </section>
@@ -114,7 +114,7 @@ export default function AboutPage() {
                 </div>
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 className="font-extrabold text-[#004D20] text-lg leading-snug">Elvire Kadjo</h4>
+                    <h4 className="font-extrabold text-[#004D20] text-lg leading-snug">Elvire Kadio</h4>
                     <p className="text-sm text-[#CA8A04] font-bold mt-1">Responsable Contenu</p>
                   </div>
                   <p className="text-xs text-slate-600 mt-3 leading-relaxed">

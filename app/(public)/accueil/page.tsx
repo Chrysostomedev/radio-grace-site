@@ -75,7 +75,7 @@ export default function AccueilPage() {
           />
           <QuoteCard
             quote="La radio est un moyen merveilleux pour partager la Parole de Dieu, accompagner les familles et apporter une lueur d'espoir au cœur des foyers."
-            author="Elvire Kadjo"
+            author="Elvire Kadio"
             role="Directrice des programmes • Radio Grâce-Espoir"
             image="/img/hero1.jpg"
           />

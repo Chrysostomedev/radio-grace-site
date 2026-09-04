@@ -19,7 +19,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const heroSlideService = {
   async getAll(): Promise<HeroSlide[]> {
-    const response = await fetch(`${API_URL}/site/hero-slides`);
+    const response = await fetch(`${API_URL}/hero-slides`);
     if (!response.ok) throw new Error('Erreur chargement hero slides');
     const data = await response.json();
     return data.data || [];
@@ -66,14 +66,14 @@ export const grilleService = {
 export const podcastService = {
   async getAll(perPage: number = 20, page: number = 1): Promise<PodcastsResponse> {
     const response = await fetch(
-      `${API_URL}/site/podcasts?per_page=${perPage}&page=${page}`
+      `${API_URL}/podcasts?per_page=${perPage}&page=${page}`
     );
     if (!response.ok) throw new Error('Erreur chargement podcasts');
     return response.json();
   },
 
   async getById(id: number): Promise<Podcast> {
-    const response = await fetch(`${API_URL}/site/podcasts/${id}`);
+    const response = await fetch(`${API_URL}/podcasts/${id}`);
     if (!response.ok) throw new Error('Podcast non trouvé');
     const data = await response.json();
     return data.data || data;
@@ -81,7 +81,7 @@ export const podcastService = {
 
   async search(query: string): Promise<PodcastsResponse> {
     const response = await fetch(
-      `${API_URL}/site/podcasts/search?q=${encodeURIComponent(query)}`
+      `${API_URL}/podcasts/search?q=${encodeURIComponent(query)}`
     );
     if (!response.ok) throw new Error('Erreur recherche podcasts');
     return response.json();
@@ -95,14 +95,14 @@ export const podcastService = {
 export const intentionService = {
   async getAll(perPage: number = 20, page: number = 1): Promise<IntentionsResponse> {
     const response = await fetch(
-      `${API_URL}/site/intentions-priere?per_page=${perPage}&page=${page}`
+      `${API_URL}/intentions-priere?per_page=${perPage}&page=${page}`
     );
     if (!response.ok) throw new Error('Erreur chargement intentions');
     return response.json();
   },
 
   async getById(id: number): Promise<IntentionPriere> {
-    const response = await fetch(`${API_URL}/site/intentions-priere/${id}`);
+    const response = await fetch(`${API_URL}/intentions-priere/${id}`);
     if (!response.ok) throw new Error('Intention non trouvée');
     const data = await response.json();
     return data.data || data;
@@ -118,7 +118,7 @@ export const intentionService = {
     is_public?: boolean;
     is_anonyme?: boolean;
   }): Promise<IntentionResponse> {
-    const response = await fetch(`${API_URL}/site/intentions-priere`, {
+    const response = await fetch(`${API_URL}/intentions-priere`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export const intentionService = {
 
   async verifyPayment(id: number): Promise<IntentionResponse> {
     const response = await fetch(
-      `${API_URL}/site/intentions-priere/${id}/verifier-paiement`,
+      `${API_URL}/intentions-priere/${id}/verifier-paiement`,
       {
         method: 'POST',
       }
@@ -158,21 +158,21 @@ export const intentionService = {
 export const programmeService = {
   async getAll(perPage: number = 20): Promise<any> {
     const response = await fetch(
-      `${API_URL}/site/programmes?per_page=${perPage}`
+      `${API_URL}/programmes?per_page=${perPage}`
     );
     if (!response.ok) throw new Error('Erreur chargement programmes');
     return response.json();
   },
 
   async getById(id: number): Promise<any> {
-    const response = await fetch(`${API_URL}/site/programmes/${id}`);
+    const response = await fetch(`${API_URL}/programmes/${id}`);
     if (!response.ok) throw new Error('Programme non trouvé');
     const data = await response.json();
     return data.data || data;
   },
 
   async getGrille(id: number): Promise<any> {
-    const response = await fetch(`${API_URL}/site/programmes/${id}/grille`);
+    const response = await fetch(`${API_URL}/programmes/${id}/grille`);
     if (!response.ok) throw new Error('Erreur chargement grille programme');
     return response.json();
   },
@@ -185,14 +185,14 @@ export const programmeService = {
 export const actualiteService = {
   async getAll(perPage: number = 20): Promise<any> {
     const response = await fetch(
-      `${API_URL}/site/actualites?per_page=${perPage}`
+      `${API_URL}/actualites?per_page=${perPage}`
     );
     if (!response.ok) throw new Error('Erreur chargement actualités');
     return response.json();
   },
 
   async getById(id: number | string): Promise<any> {
-    const response = await fetch(`${API_URL}/site/actualites/${id}`);
+    const response = await fetch(`${API_URL}/actualites/${id}`);
     if (!response.ok) throw new Error('Actualité non trouvée');
     const data = await response.json();
     return data.data || data;
@@ -206,14 +206,14 @@ export const actualiteService = {
 export const evenementService = {
   async getAll(perPage: number = 20): Promise<any> {
     const response = await fetch(
-      `${API_URL}/site/evenements?per_page=${perPage}`
+      `${API_URL}/evenements?per_page=${perPage}`
     );
     if (!response.ok) throw new Error('Erreur chargement événements');
     return response.json();
   },
 
   async getById(id: number): Promise<any> {
-    const response = await fetch(`${API_URL}/site/evenements/${id}`);
+    const response = await fetch(`${API_URL}/evenements/${id}`);
     if (!response.ok) throw new Error('Événement non trouvé');
     const data = await response.json();
     return data.data || data;

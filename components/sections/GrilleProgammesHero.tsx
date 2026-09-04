@@ -146,7 +146,7 @@ export function GrilleProgammesHero() {
                     </button>
                     {slot.programme && (
                       <Link
-                        href={`/programmes/${slot.programme.id}`}
+                        href={`/emissions/${slot.programme.id}`}
                         className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white px-4 py-2.5 rounded-lg font-bold text-xs transition-colors duration-200"
                       >
                         <ChevronRight className="w-4 h-4" />

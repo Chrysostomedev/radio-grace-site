@@ -125,7 +125,7 @@ export function AboutSection({ title, subtitle, content, image, stats }: AboutSe
                   <Radio className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="block text-base font-extrabold text-[#004D20]">24h / 7d</span>
+                  <span className="block text-base font-extrabold text-[#004D20]">24h/24 & 7j/7</span>
                   <span className="text-xs text-slate-500">Direct continu</span>
                 </div>
               </div>

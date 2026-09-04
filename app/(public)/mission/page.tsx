@@ -36,7 +36,6 @@ export default function MissionPage() {
             <h2 className="text-2xl font-bold text-forest-900 mb-6 text-center">Nos Trois Piliers</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-forest-900">
-                <div className="text-4xl mb-4">🙏</div>
                 <h3 className="text-xl font-bold text-forest-900 mb-3">Spiritualité</h3>
                 <p className="text-slate-600 text-sm">
                   Nous plaçons la foi et la méditation spirituelle au cœur de tous nos contenus et nos actions.
@@ -44,7 +43,6 @@ export default function MissionPage() {
               </div>
 
               <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-sun-500">
-                <div className="text-4xl mb-4">❤️</div>
                 <h3 className="text-xl font-bold text-forest-900 mb-3">Compassion</h3>
                 <p className="text-slate-600 text-sm">
                   L'amour du prochain guide chacune de nos paroles et de nos actions envers ceux qui nous écoutent.
@@ -52,7 +50,6 @@ export default function MissionPage() {
               </div>
 
               <div className="bg-white rounded-lg shadow-md p-6 border-t-4 border-terracotta-500">
-                <div className="text-4xl mb-4">✨</div>
                 <h3 className="text-xl font-bold text-forest-900 mb-3">Espoir</h3>
                 <p className="text-slate-600 text-sm">
                   Nous apportons l'espoir et la lumière à ceux qui vivent dans l'obscurité ou la détresse.

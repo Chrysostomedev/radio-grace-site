@@ -2,6 +2,7 @@
 
 import { Loader } from 'lucide-react';
 import { usePartenairesQuery } from '@/hooks/usePartenaires';
+import { getAbsoluteImageUrl } from '@/lib/imageUrl';
 
 export function PartenairesSection() {
   const { data: partenaires = [], isLoading } = usePartenairesQuery();
@@ -53,7 +54,7 @@ export function PartenairesSection() {
               <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-[#163A2C]/10 hover:border-[#CA8A04] transition-all duration-300 group-hover:shadow-[0_0_30px_rgba(202,138,4,0.3)] bg-white flex items-center justify-center mb-4">
                 {partenaire.logo ? (
                   <img
-                    src={partenaire.logo}
+                    src={getAbsoluteImageUrl(partenaire.logo)}
                     alt={partenaire.nom}
                     className="object-contain p-4"
                   />

@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'rge-radio.duckdns.org',
+        hostname: ' api.radio.graceespoir.ci',
       },
       {
         protocol: 'http',
@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'http',
-        hostname: '192.168.1.85',
+        hostname: '192.168.1.131',
       },
     ],
   },

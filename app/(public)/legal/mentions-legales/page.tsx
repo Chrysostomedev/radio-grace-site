@@ -40,9 +40,9 @@ export default function MentionsLegalesPage() {
           {/* <InfoRow label="Forme juridique" value="[Association loi 1901 / SARL — à compléter]" /> */}
           <InfoRow label="Siège social" value="Abidjan, Yopougon, Cité Aboulaye Diallo" />
           {/* <InfoRow label="SIREN / RCCM" value="[Numéro d'enregistrement]" /> */}
-          <InfoRow label="Téléphone" value="+225 07 79 37 98 38" />
+          <InfoRow label="Téléphone" value="+225 05 05 14 52 15 " />
           <InfoRow label="Email" value="contact@grace-espoir.com" />
-          <InfoRow label="Directrice des programmes" value="Elvire Kadjo" />
+          <InfoRow label="Directrice des programmes" value="Elvire Kado" />
         </div>
       </Section>
 

@@ -410,12 +410,12 @@ export default function AppMobileSection() {
               Application mobile
             </span>
 
-            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#FBF6EA] sm:text-4xl">
+            {/* <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-[#FBF6EA] sm:text-4xl">
               Radio Grâce- {" "}
               <span className="text-[#F0A93E]">
                 où que vous soyez
               </span>
-            </h2>
+            </h2> */}
 
             <p className="mt-4 text-sm sm:text-base leading-relaxed text-[#D5DDD6]">
               Téléchargez l&apos;application officielle de la Radio Grâce-Espoir.

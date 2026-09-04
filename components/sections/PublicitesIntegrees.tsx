@@ -3,6 +3,7 @@
 import { usePublicitesQuery } from '@/hooks/usePublicites';
 import { Play, X } from 'lucide-react';
 import { useState } from 'react';
+import { getAbsoluteImageUrl } from '@/lib/imageUrl';
 
 export function PublicitesIntegrees() {
   const { data: publicites = [] } = usePublicitesQuery();
@@ -37,7 +38,7 @@ export function PublicitesIntegrees() {
                       {/* Background image */}
                       {pub.image ? (
                         <img
-                          src={pub.image}
+                          src={getAbsoluteImageUrl(pub.image)}
                           alt={pub.titre}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         />
