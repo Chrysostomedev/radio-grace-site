@@ -428,7 +428,6 @@ export default function AppMobileSection() {
               {[
                 "Écoute en direct 24h/24",
                 "Émissions & podcasts à la demande",
-                "Notifications pour les messes et événements",
                 "Intentions de prière",
                 "Accessible hors connexion (homélies)",
               ].map((feat) => (

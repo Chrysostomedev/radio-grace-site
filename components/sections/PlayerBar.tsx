@@ -151,9 +151,7 @@ export function PlayerBar() {
                 <span className={`w-1.5 h-1.5 rounded-full bg-rose-400 ${isPlaying ? 'animate-pulse' : 'opacity-40'}`} />
                 Direct
               </span>
-              <span className="text-[10px] text-[#FBF6EA]/50 font-bold tracking-[0.15em] uppercase hidden sm:inline-block">
-                Grâce-Espoir FM
-              </span>
+             
             </div>
             <p className="text-sm font-bold truncate text-[#FBF6EA] mt-0.5">
               {isBuffering && isPlaying ? 'Connexion au flux…' : (currentStation || 'Flux Direct Audio HD')}
@@ -163,28 +161,7 @@ export function PlayerBar() {
           {/* Contrôles */}
           <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
 
-            {/* Volume */}
-            <div className="hidden md:flex items-center gap-2.5 bg-black/25 px-3 py-1.5 rounded-full border border-white/10">
-              <button
-                onClick={toggleVolumeMute}
-                className="text-[#FBF6EA]/70 hover:text-[#F0A93E] transition-colors"
-                aria-label="Sourdine"
-              >
-                <VolumeIcon className="w-4 h-4" />
-              </button>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={volume}
-                onChange={(e) => setVolume(Number(e.target.value))}
-                className="w-20 h-1.5 bg-[#163A2C] rounded-lg appearance-none cursor-pointer accent-[#F0A93E] focus:outline-none"
-              />
-              <span className="text-xs font-mono w-7 text-right text-[#FBF6EA]/70">
-                {volume}%
-              </span>
-            </div>
-
+           
             {/* Bouton Partage */}
             <button
               onClick={handleShare}
