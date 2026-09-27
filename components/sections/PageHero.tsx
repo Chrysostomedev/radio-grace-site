@@ -45,15 +45,15 @@ export function PageHero({
                 {item.href ? (
                   <a
                     href={item.href}
-                    className="text-sun-300 hover:text-sun-400 transition-colors"
+                    className="text-white hover:text-sun-300 transition-colors font-medium"
                   >
                     {item.label}
                   </a>
                 ) : (
-                  <span className="text-ivory-300 font-medium">{item.label}</span>
+                  <span className="text-ivory-100 font-medium">{item.label}</span>
                 )}
                 {index < breadcrumb.length - 1 && (
-                  <span className="text-ivory-400/60" aria-hidden="true">
+                  <span className="text-ivory-300/60" aria-hidden="true">
                     /
                   </span>
                 )}

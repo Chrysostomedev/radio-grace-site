@@ -9,7 +9,7 @@ export const API_INSTANCE = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
-  timeout: 10000,
+  timeout: 100000,
 });
 
 // Interceptor pour gérer les erreurs globales si besoin
