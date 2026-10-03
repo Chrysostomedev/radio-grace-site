@@ -14,74 +14,72 @@ import {
   ChevronRight, 
   Play, 
   Pause, 
-  Radio, 
-  ArrowRight, 
-  Sparkles,
-  Volume2
+  Volume2,
+  ArrowRight
 } from 'lucide-react';
 
 const AUTOPLAY_INTERVAL = 6000;
 
-// Visualisations de secours ultra-qualitatives (4 à 5 visuels immersive)
-// const FALLBACK_SLIDES = [
-
-//   {
-//     id: '2',
-//     image: '/img/hero1.jpg',
-//     badge: 'Louange & Adoration',
-//     title: 'Des Moments de Grâce Inoubliables',
-//     subtitle: 'Élevez votre esprit avec nos programmes musicaux sélectionnés pour fortifier votre foi.',
-//     cta: { label: 'Découvrir nos émissions', href: '/emissions' }
-//   },
-//   {
-//     id: '3',
-//     image: '/img/actu (4).jpg',
-//     badge: 'Communauté',
-//     title: 'Ensemble Dans la Prière',
-//     subtitle: 'Déposez vos intentions et rejoignez une grande famille unie par l’espérance.',
-//     cta: { label: 'Confier une intention', href: '/prieres' }
-//   },
-//   {
-//     id: '4',
-//     image: '/img/her.jpg',
-//     badge: 'Vie de l\'Église',
-//     title: 'Actualités & Enseignements',
-//     subtitle: 'Restez informé de la vie de notre diocèse et des réflexions de nos pasteurs.',
-//     cta: { label: 'Lire les actualités', href: '/actualites' }
-//   },
-//   {
-//     id: '5',
-//     image: '/img/pere.jpg',
-//     badge: 'Solidarité',
-//     title: 'Soutenez la Mission Radiophonique',
-//     subtitle: 'Votre générosité permet à la parole d’espérance d’atteindre des milliers de foyers.',
-//     cta: { label: 'Faire un don', href: '/dons' }
-//   }
-// ];
+const FALLBACK_SLIDES = [
+  {
+    id: '1',
+    image: '/img/hero1.jpg',
+    badge: 'Bienvenue',
+    title: 'Bienvenue à Radio Grâce Espoir',
+    subtitle: "La voix de la foi, d'espérance et de charité dans vos cœurs.",
+    cta: { label: 'Écouter en direct', href: '/live' }
+  },
+  {
+    id: '2',
+    image: '/img/hero1.jpg',
+    badge: 'Louange & Adoration',
+    title: 'Des Moments de Grâce Inoubliables',
+    subtitle: "Élevez votre esprit avec nos programmes musicaux sélectionnés pour fortifier votre foi.",
+    cta: { label: 'Découvrir nos émissions', href: '/emissions' }
+  }
+];
 
 export function HeroCarousel() {
   const { data: customSlides, isLoading } = useHeroSlidesQuery();
-  const slides = (customSlides && customSlides.length > 0) ? customSlides : [];
+  const slides = Array.isArray(customSlides) && customSlides.length > 0 ? customSlides : FALLBACK_SLIDES;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const nextSlide = useCallback(() => {
+    if (slides.length === 0) return;
     setCurrentIndex((prev) => (prev + 1) % slides.length);
   }, [slides.length]);
 
   const prevSlide = useCallback(() => {
+    if (slides.length === 0) return;
     setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
   }, [slides.length]);
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || !mounted) return;
     const timer = setInterval(() => {
       nextSlide();
     }, AUTOPLAY_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [isPaused, nextSlide]);
+  }, [isPaused, nextSlide, mounted]);
+
+  if (!mounted || slides.length === 0) {
+    return (
+      <div className="relative w-full h-[500px] sm:h-[600px] lg:h-[650px] rounded-3xl overflow-hidden bg-[#001A0B] shadow-2xl border border-amber-500/20 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-500 mx-auto mb-4"></div>
+          <p className="text-white">Chargement...</p>
+        </div>
+      </div>
+    );
+  }
 
   const activeSlide = slides[currentIndex];
 
@@ -104,7 +102,7 @@ export function HeroCarousel() {
             {slide.image && (
               <Image
                 src={getAbsoluteImageUrl(slide.image)}
-                alt={slide.title}
+                alt={slide.title || 'Slide'}
                 fill
                 priority={index === 0}
                 className={`object-cover object-center transition-transform duration-[7000ms] ease-out ${
@@ -114,10 +112,10 @@ export function HeroCarousel() {
               />
             )}
 
-            {/* Couches de dégradés — allégées pour laisser voir l'image */}
-<div className="absolute inset-0 bg-gradient-to-t from-[#001A0B]/80 via-[#001A0B]/25 to-transparent" />
-<div className="absolute inset-0 bg-gradient-to-r from-[#001A0B]/70 via-[#001A0B]/20 to-transparent hidden sm:block w-2/3" />
-<div className="absolute inset-0 bg-black/10" />
+            {/* Couches de dégradés */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#001A0B]/80 via-[#001A0B]/25 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#001A0B]/70 via-[#001A0B]/20 to-transparent hidden sm:block w-2/3" />
+            <div className="absolute inset-0 bg-black/10" />
           </div>
         );
       })}
@@ -125,18 +123,15 @@ export function HeroCarousel() {
       {/* 2. CONTENU DU SLIDE (TITRE + CTA + BADGE) */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end sm:justify-center px-6 sm:px-12 lg:px-16 pb-20 sm:pb-0">
         <div className="max-w-3xl space-y-4 sm:space-y-6">
-          
-         
-
           {/* Titre Principal dynamique */}
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight sm:leading-none drop-shadow-lg">
-            {activeSlide?.title}
+            {activeSlide?.title || ''}
           </h1>
 
           {/* Description */}
           {activeSlide?.subtitle && (
             <p className="text-sm sm:text-lg lg:text-xl font-medium text-slate-200 leading-relaxed line-clamp-3 max-w-2xl drop-shadow-md">
-              {activeSlide?.subtitle}
+              {activeSlide.subtitle}
             </p>
           )}
 
@@ -155,7 +150,6 @@ export function HeroCarousel() {
               </Link>
             </div>
           )}
-
         </div>
       </div>
 
@@ -172,7 +166,7 @@ export function HeroCarousel() {
         <button
           onClick={() => setIsPaused(!isPaused)}
           className="p-3.5 rounded-2xl bg-[#001A0B]/60 hover:bg-[#CA8A04] text-white hover:text-slate-950 backdrop-blur-md border border-white/15 hover:border-[#CA8A04] transition-all duration-300 hover:scale-110 active:scale-90 shadow-lg hidden sm:flex"
-          aria-label={isPaused ? 'Reprendre l’animation' : 'Mettre en pause'}
+          aria-label={isPaused ? "Reprendre l'animation" : "Mettre en pause"}
         >
           {isPaused ? <Play className="w-5 h-5 fill-current" /> : <Pause className="w-5 h-5 fill-current" />}
         </button>
@@ -218,7 +212,6 @@ export function HeroCarousel() {
           );
         })}
       </div>
-
     </div>
   );
 }

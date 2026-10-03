@@ -3,9 +3,8 @@
 import { useActualites } from '@/hooks/useActualites';
 import { ActualiteCard } from '@/components/cards/ActualiteCard';
 import { PageHero } from '@/components/sections/PageHero';
-import { ArrowRight, Search } from 'lucide-react';
-import Link from 'next/link';
 import { useState } from 'react';
+import Script from 'next/script';
 
 export default function ActualitesPage() {
   const [page, setPage] = useState(1);
@@ -93,25 +92,18 @@ export default function ActualitesPage() {
         )}
       </section>
 
-      {/* Newsletter CTA */}
-      <section className="py-12 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-r from-[#004D20] to-[#003817] rounded-2xl p-8 sm:p-12 text-white">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
-            <div>
-              <h3 className="text-2xl font-bold mb-2">Recevez nos actualités</h3>
-              <p className="text-sm sm:text-base opacity-90">
-                Abonnez-vous à notre infolettre pour ne rien manquer.
-              </p>
-            </div>
-            <Link
-              href="/#newsletter"
-              className="shrink-0 px-6 py-3 bg-[#CA8A04] hover:bg-[#b07803] text-slate-950 font-bold rounded-xl transition-colors text-sm whitespace-nowrap"
-            >
-              S'abonner
-            </Link>
-          </div>
+      {/* Widget Vatican News */}
+      <section className="py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="mt-8 overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+          {/* @ts-expect-error - Custom Vatican News widget */}
+          <vaticannews-widget lang="fr" fontSize="14" />
         </div>
       </section>
+
+      <Script
+        src="https://www.vaticannews.va/widget.js"
+        strategy="lazyOnload"
+      />
     </div>
   );
 }

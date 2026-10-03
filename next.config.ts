@@ -1,3 +1,4 @@
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -17,6 +18,18 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "http",
+        hostname: "api.radio.graceespoir.ci",
+      },
+      {
+        protocol: "https",
+        hostname: "api.radio.graceespoir",
+      },
+      {
+        protocol: "http",
+        hostname: "api.radio.graceespoir",
+      },
+      {
+        protocol: "http",
         hostname: "localhost",
       },
       {
@@ -25,10 +38,11 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "http",
-        hostname: " 10.201.75.39",
+        hostname: "10.201.75.39",
       },
     ],
   },
 };
 
 export default nextConfig;
+
